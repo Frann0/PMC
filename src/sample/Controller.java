@@ -1,6 +1,8 @@
 package sample;
 
 import be.Movie;
+import bll.Searcher;
+import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,8 +24,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
     @FXML
@@ -52,19 +54,31 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneMovieTitle;
     @FXML
+    private Pane TitleBar;
+    @FXML
+    private Pane titlePane;
+    @FXML
     private HBox root;
+    @FXML
+    private JFXTextField Search;
 
     private final ObservableList<String> genres = FXCollections.observableArrayList();
     private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        TitleBar.setPrefWidth(465);
+        titlePane.setPrefWidth(143);
         genres.add("Test");
         genres.add("Test2");
         genres.add("Test3");
         genres.add("Test4");
 
-        movies.add(new Movie("The Shawshank Redemption", 5));
+        ObservableList<String> Test = FXCollections.observableArrayList();
+        Test.add(genres.get(0));
+        Test.add(genres.get(1));
+
+        movies.add(new Movie("The Shawshank Redemption", 5, Test));
 
         tblClmTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblClmRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -100,6 +114,8 @@ public class Controller implements Initializable {
         }
 
         if (tblMoviesInGenre.getSelectionModel().getSelectedItem() != null) {
+            titlePane.setPrefWidth(483);
+            TitleBar.setPrefWidth(800);
             Movie currentMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
             paneMovieTitle.setVisible(true);
             lblBigMovieTitle.setText(currentMovie.getTitle());
@@ -117,5 +133,12 @@ public class Controller implements Initializable {
     public void handleMinimize(MouseEvent mouseEvent) {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setIconified(true);
+    }
+
+    public void handleSearch(KeyEvent keyEvent) {
+        Searcher searcher = new Searcher();
+
+        tblMoviesInGenre.setItems(searcher.search(movies, Search.getText()));
+
     }
 }

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" styleClass="root" stylesheets="@../Resources/Style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <HBox fx:id="root" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../Resources/Style/Style.css">
+         <children>
+            <VBox prefHeight="600.0" prefWidth="476.0" styleClass="root">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../Resources/Style/Style.css">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox prefHeight="45.0" prefWidth="465.0">
+                           <children>
+                              <Label text="Genre" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold Italic" size="25.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <Pane prefHeight="45.0" prefWidth="185.0" />
+                           </children>
+                        </HBox>
+                        <JFXListView fx:id="lstGenre" layoutX="8.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#handleGenreSelected" prefHeight="235.0" prefWidth="450.0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="paneMovies" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../Resources/Style/Style.css">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <HBox prefHeight="45.0" prefWidth="465.0">
+                           <children>
+                              <Label fx:id="lblMoviesInGenre" text="Movies" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold Italic" size="25.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="263.0" />
+                              <Pane prefHeight="45.0" prefWidth="97.0" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tblMoviesInGenre" layoutX="7.0" layoutY="50.0" onMouseClicked="#handleMovieSelected" prefHeight="240.0" prefWidth="450.0">
+                           <columns>
+                              <TableColumn id="titleColumnHeader" fx:id="tblClmTitle" editable="false" prefWidth="252.00002002716064" styleClass="titleColumnHeader" text="Title" />
+                              <TableColumn fx:id="tblClmRating" prefWidth="67.33331298828125" text="Rating" />
+                              <TableColumn fx:id="tblClmLastViewed" prefWidth="130.0" styleClass="lastViewedColoumnHeader" text="Last Viewed" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <Pane fx:id="paneMovieTitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="325.0">
+                     <children>
+                        <Label fx:id="lblBigMovieTitle" text="Movie Title" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="25.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="85.0" />
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="imgPoster" fitHeight="327.0" fitWidth="220.0" layoutX="53.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="37.0" layoutY="468.0" text="Last view:" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="382.0" text="Title: " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="412.0" text="Your Rating:" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblIMDBRating" layoutX="128.0" layoutY="442.0" prefHeight="21.0" prefWidth="163.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblMovieTitle" layoutX="78.0" layoutY="382.0" prefHeight="21.0" prefWidth="210.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblMovieRating" layoutX="126.0" layoutY="412.0" prefHeight="21.0" prefWidth="163.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="442.0" text="IMDB Rating: " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblMovieLastView" layoutX="116.0" layoutY="468.0" prefHeight="21.0" prefWidth="174.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <Pane fx:id="TitleBar" prefHeight="40.0" prefWidth="800.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="800.0">
+               <children>
+                  <Pane fx:id="titlePane" prefHeight="40.0" prefWidth="483.0">
+                     <children>
+                        <Label layoutX="8.0" layoutY="3.0" text="PMC" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="40.0" prefWidth="218.0">
+                     <children>
+                        <JFXTextField fx:id="Search" focusColor="#5195ba" layoutX="36.0" layoutY="6.0" onKeyTyped="#handleSearch" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
+                        <FontAwesomeIconView fill="#b3bcc8" glyphName="SEARCH" layoutX="14.0" layoutY="26.0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="40.0" prefWidth="105.0">
+                     <children>
+                        <FontAwesomeIconView fill="#b3bcc8" glyphName="TIMES" layoutX="80.0" layoutY="28.0" onMouseClicked="#handleExit" size="20" styleClass="exit" text="" />
+                        <FontAwesomeIconView fill="#b3bcc8" glyphName="MINUS" layoutX="50.0" layoutY="29.0" onMouseClicked="#handleMinimize" size="20" styleClass="minimize" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

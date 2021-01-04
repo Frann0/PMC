@@ -12,14 +12,14 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
     private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int HEIGHT = 650;
 
     private static double xOffset = 0;
     private static double yOffset = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setTitle("Hello World");

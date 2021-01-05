@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,10 +16,63 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" styleClass="root" stylesheets="@../Resources/Style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1135.0" styleClass="root" stylesheets="@../Resources/Style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <HBox fx:id="root" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../Resources/Style/Style.css">
+      <HBox fx:id="root" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1135.0" styleClass="root" stylesheets="@../Resources/Style/Style.css">
          <children>
+            <Pane fx:id="paneEditMovie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="325.0">
+                     <children>
+                        <Label fx:id="lblBigMovieTitle1" text="Edit Movie" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold Italic" size="25.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="85.0" />
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="imgAddPoster" fitHeight="327.0" fitWidth="220.0" layoutX="53.0" layoutY="45.0" onMouseClicked="#HandleAddMoviePoster" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Resources/AddPoster.png" />
+                     </image></ImageView>
+                  <Label layoutX="37.0" layoutY="508.0" text="Genres: " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="382.0" text="Title: " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="412.0" text="Your Rating:" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblIMDBRating1" layoutX="128.0" layoutY="442.0" prefHeight="21.0" prefWidth="163.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="442.0" text="IMDB Rating: " textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="Search1" focusColor="#5195ba" layoutX="82.0" layoutY="380.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="220.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
+                  <JFXTextField fx:id="Search11" focusColor="#5195ba" layoutX="126.0" layoutY="410.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="174.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
+                  <JFXTextField fx:id="Search111" focusColor="#5195ba" layoutX="105.0" layoutY="506.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="200.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
+                  <JFXTextArea editable="false" layoutX="37.0" layoutY="463.0" prefHeight="45.0" prefWidth="263.0" text="To add genres, type them here with a ',' &#10;seperating them.&#10;" wrapText="true" />
+               </children>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Pane>
             <VBox prefHeight="600.0" prefWidth="476.0" styleClass="root">
                <children>
                   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../Resources/Style/Style.css">
@@ -129,6 +184,9 @@
                      </font>
                   </Label>
                </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </Pane>
          </children>
       </HBox>

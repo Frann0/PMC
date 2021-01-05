@@ -54,6 +54,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneMovieTitle;
     @FXML
+    private Pane paneEditMovie;
+    @FXML
     private Pane TitleBar;
     @FXML
     private Pane titlePane;
@@ -86,6 +88,8 @@ public class Controller implements Initializable {
 
         paneMovies.setVisible(false);
         paneMovieTitle.setVisible(false);
+
+        paneEditMovie.setVisible(true);
 
         lstGenre.setItems(genres);
         tblMoviesInGenre.setItems(movies);
@@ -140,5 +144,9 @@ public class Controller implements Initializable {
 
         tblMoviesInGenre.setItems(searcher.search(movies, Search.getText()));
 
+    }
+
+    public void HandleAddMoviePoster(MouseEvent mouseEvent) {
+        System.out.println("Test");
     }
 }

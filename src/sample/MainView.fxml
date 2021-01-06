@@ -65,12 +65,12 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="Search1" focusColor="#5195ba" layoutX="82.0" layoutY="380.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="220.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
-                  <JFXTextField fx:id="Search11" focusColor="#5195ba" layoutX="126.0" layoutY="410.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="174.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
+                  <JFXTextField fx:id="personalRatingField" focusColor="#5195ba" layoutX="126.0" layoutY="410.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="174.0" promptText="Not rated yet!" styleClass="search" unFocusColor="#b3bcc8" />
                   <JFXTextField fx:id="Search111" focusColor="#5195ba" layoutX="105.0" layoutY="506.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="200.0" promptText="Search" styleClass="search" unFocusColor="#b3bcc8" />
                   <JFXTextArea editable="false" layoutX="37.0" layoutY="463.0" prefHeight="45.0" prefWidth="263.0" text="To add genres, type them here with a ',' &#10;seperating them.&#10;" wrapText="true" />
                   <Button layoutX="237.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleSaveMovie" prefHeight="27.0" prefWidth="69.0" styleClass="save" text="Save" />
                   <Button layoutX="157.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCancelMovie" prefHeight="27.0" prefWidth="69.0" styleClass="cancel" text="Cancel" />
+                  <Label fx:id="movieTitleField" layoutX="128.0" layoutY="384.0" prefHeight="25.0" prefWidth="174.0" />
                </children>
                <HBox.margin>
                   <Insets right="10.0" />

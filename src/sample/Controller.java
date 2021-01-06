@@ -3,16 +3,15 @@ package sample;
 import be.Movie;
 import bll.Searcher;
 import com.jfoenix.controls.JFXTextField;
+import gui.model.genreModel;
+import gui.model.movieModel;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +19,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -66,12 +69,26 @@ public class Controller implements Initializable {
     private HBox titleHbox;
     @FXML
     private JFXTextField Search;
+    @FXML
+    private Label movieTitleField;
+    @FXML
+    private JFXTextField personalRatingField;
+    @FXML
+    private Label lblIMDBRating1;
+
+    private movieModel myMovieModel;
+    private genreModel myGenreModel;
 
     private final ObservableList<String> genres = FXCollections.observableArrayList();
     private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            myMovieModel = new movieModel();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
         TitleBar.setPrefWidth(465);
         titlePane.setPrefWidth(150);
 
@@ -84,7 +101,7 @@ public class Controller implements Initializable {
         Test.add(genres.get(0));
         Test.add(genres.get(1));
 
-        movies.add(new Movie("The Shawshank Redemption", 5, Test));
+        movies.add(new Movie("The Shawshank Redemption", "5", "C:/testpath"));
 
         tblClmTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblClmRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -152,12 +169,35 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleAddMovie(){
+    public void handleAddMovie() throws SQLException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a movie you want to add to your playlist");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Movie files (*.mpeg4 , *.mp4)", "*.mpeg4", "*.mp4");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+
+        // Reformatting filePath to get movie info.
+        String filePath = selectedFile.getPath();
+        String[] movieInfoTemp = filePath.split("\\\\");
+        String[] movieInfo = movieInfoTemp[movieInfoTemp.length-1].split("-");
+        String imdbRating = movieInfo[0].trim();
+        String[] movieTitleTemp = movieInfo[1].split("\\.");
+        String movieTitle = movieTitleTemp[0].trim();
+
+        myMovieModel.addMovie(movieTitle, imdbRating, filePath);
+
+        // TODO Make if statement to check if title is already in allMovies
+        // TODO Update fields in editWindow
+
+        movieTitleField.setText(movieTitle);
+        lblIMDBRating1.setText(imdbRating);
+
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);
         titlePane.setPrefWidth(845);
         titleHbox.setPrefWidth(1135);
+
     }
 
     public void HandleAddMoviePoster(MouseEvent mouseEvent) {
@@ -165,6 +205,9 @@ public class Controller implements Initializable {
     }
 
     public void handleRemoveMovie(ActionEvent actionEvent) {
+        Movie toDelete = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+
+
     }
 
     public void handleEditMovie(ActionEvent actionEvent) {

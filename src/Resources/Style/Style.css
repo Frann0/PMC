@@ -107,3 +107,42 @@
 .minimize:hover{
     -fx-fill: #FF7416;
 }
+
+.cancel{
+    -fx-shape: "M 400 300 A 50 50 0 1 1 400 200 L 700 200 A 50 50 0 1 1 700 300 L 400 300 ";
+    -fx-background-color: #3E4651;
+    -fx-border-color: #b3bcc8;
+    -fx-border-width: 1;
+    -fx-text-fill: #b3bcc8;
+}
+
+.save{
+    -fx-shape: "M 400 300 A 50 50 0 1 1 400 200 L 700 200 A 50 50 0 1 1 700 300 L 400 300 ";
+    -fx-background-color: #3E4651;
+    -fx-border-color: #b3bcc8;
+    -fx-border-width: 1;
+    -fx-text-fill: #b3bcc8;
+}
+
+.cancel:hover{
+    -fx-border-color: #CF000F;
+    -fx-text-fill: #CF000F;
+}
+
+.save:hover{
+    -fx-border-color: #97CE68;
+    -fx-text-fill: #97CE68;
+}
+
+.uiButtons{
+    -fx-shape: "M 400 300 A 150 150 0 1 1 700 300 A 150 150 0 1 1 400 300 ";
+    -fx-background-color: #3E4651;
+    -fx-border-color: #b3bcc8;
+    -fx-border-width: 1;
+    -fx-text-fill: #b3bcc8;
+}
+
+.uiButtons:hover{
+    -fx-border-color: white;
+    -fx-text-fill: white;
+}

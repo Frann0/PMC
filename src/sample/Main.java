@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application {
-    private static final int WIDTH = 800;
+    private static final int WIDTH = 1135;
     private static final int HEIGHT = 650;
 
     private static double xOffset = 0;

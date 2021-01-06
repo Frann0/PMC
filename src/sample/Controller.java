@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -62,6 +63,8 @@ public class Controller implements Initializable {
     @FXML
     private HBox root;
     @FXML
+    private HBox titleHbox;
+    @FXML
     private JFXTextField Search;
 
     private final ObservableList<String> genres = FXCollections.observableArrayList();
@@ -70,7 +73,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TitleBar.setPrefWidth(465);
-        titlePane.setPrefWidth(143);
+        titlePane.setPrefWidth(150);
+
         genres.add("Test");
         genres.add("Test2");
         genres.add("Test3");
@@ -88,8 +92,9 @@ public class Controller implements Initializable {
 
         paneMovies.setVisible(false);
         paneMovieTitle.setVisible(false);
+        paneEditMovie.setVisible(false);
 
-        paneEditMovie.setVisible(true);
+        titleHbox.setPrefWidth(800);
 
         lstGenre.setItems(genres);
         tblMoviesInGenre.setItems(movies);
@@ -118,7 +123,8 @@ public class Controller implements Initializable {
         }
 
         if (tblMoviesInGenre.getSelectionModel().getSelectedItem() != null) {
-            titlePane.setPrefWidth(483);
+            titlePane.setPrefWidth(490);
+            titleHbox.setPrefWidth(800);
             TitleBar.setPrefWidth(800);
             Movie currentMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
             paneMovieTitle.setVisible(true);
@@ -146,7 +152,48 @@ public class Controller implements Initializable {
 
     }
 
+    public void handleAddMovie(){
+        paneEditMovie.setVisible(true);
+        TitleBar.setLayoutX(0);
+        TitleBar.setPrefWidth(1135);
+        titlePane.setPrefWidth(845);
+        titleHbox.setPrefWidth(1135);
+    }
+
     public void HandleAddMoviePoster(MouseEvent mouseEvent) {
         System.out.println("Test");
+    }
+
+    public void handleRemoveMovie(ActionEvent actionEvent) {
+    }
+
+    public void handleEditMovie(ActionEvent actionEvent) {
+        paneEditMovie.setVisible(true);
+        TitleBar.setLayoutX(0);
+        TitleBar.setPrefWidth(1135);
+        titlePane.setPrefWidth(845);
+        titleHbox.setPrefWidth(1135);
+    }
+
+    public void handleAddGenre(ActionEvent actionEvent) {
+    }
+
+    public void handleRemoveGenre(ActionEvent actionEvent) {
+    }
+
+    public void handleSaveMovie(){
+        paneEditMovie.setVisible(false);
+        TitleBar.setLayoutX(335);
+        TitleBar.setPrefWidth(800);
+        titlePane.setPrefWidth(483);
+        titleHbox.setPrefWidth(800);
+    }
+
+    public void handleCancelMovie(){
+        paneEditMovie.setVisible(false);
+        TitleBar.setLayoutX(335);
+        TitleBar.setPrefWidth(800);
+        titlePane.setPrefWidth(483);
+        titleHbox.setPrefWidth(800);
     }
 }

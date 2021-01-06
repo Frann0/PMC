@@ -22,3 +22,4 @@ and use following maven libraries:
 * de.jensd:fontawesomefx-controls:11.0
 * de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2
 * de.jensd:fontawesomefx-materialdesignfont:2.0.26-9.1.2
+* com.microsoft.sqlserver:mssql-jdbc:9.1.1.jre15-preview

@@ -147,7 +147,7 @@ public class movieDAL {
     public void deleteAssociation(String title) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
-            PreparedStatement pSql = con.prepareStatement("DELETE  FROM GenreMovie WHERE MovieTitle = ?");
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
 
@@ -160,12 +160,12 @@ public class movieDAL {
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
-            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET PersonalRating= '" + newPersonalRating + "' WHERE MovieTitle= '" + movieTitle + "'");
-            pSql.addBatch();
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET PersonalRating= '" + newPersonalRating + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
 
             // Update associations
-            // deleteAssociations(movieTitle);
-            // addAssociations(movieTitle, newGenres);
+            deleteAssociation(movieTitle);
+            addAssociation(movieTitle, newGenres);
         }
     }
 

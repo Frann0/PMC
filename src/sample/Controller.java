@@ -279,16 +279,17 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleSaveMovie(){
+    public void handleSaveMovie() throws SQLException {
         List<String> newGenres = new ArrayList<>();
-        if(!genreField.getPromptText().equals("Add genres!")){
-            String tmpGenres = genreField.getText();
-            String[] tmpArr = tmpGenres.split(",");
 
-            for (int i = 0; i < tmpArr.length; i++){
-                newGenres.add(tmpArr[i].trim());
-            }
+        String tmpGenres = genreField.getText();
+        System.out.println(tmpGenres);
+        String[] tmpArr = tmpGenres.split(",");
+
+        for (int i = 0; i < tmpArr.length; i++){
+            newGenres.add(tmpArr[i].trim());
         }
+
         String movieTitle = movieTitleField.getText();
         String rating = personalRatingField.getText();
         myMovieModel.updateMovie(movieTitle, newGenres, rating);

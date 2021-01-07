@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Movie {
-    // private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
+    private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
     private final StringProperty title = new SimpleStringProperty("");
     private final StringProperty imdbRating = new SimpleStringProperty("");
     private final StringProperty personalRating = new SimpleStringProperty("");

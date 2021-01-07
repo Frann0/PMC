@@ -41,6 +41,14 @@ public class Movie {
         return null;
     }
 
+    public String getFilePath() {
+        return filePath.get();
+    }
+
+    public String getPersonalRating() {
+        return personalRating.get();
+    }
+
     public String getTitle() {
         return title.get();
     }

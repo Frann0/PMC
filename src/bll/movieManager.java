@@ -25,7 +25,7 @@ public class movieManager {
         return myMovieDAL.getAllMovies();
     }
 
-    public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){
+    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
         myMovieDAL.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 

@@ -44,7 +44,7 @@ public class movieModel {
         return moviesByGenre;
     }
 
-    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating){
+    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
         // Update movie info in allMovies
         for(Movie mov : allMovies){
             if (mov.getTitle().equals(movieTitle)){

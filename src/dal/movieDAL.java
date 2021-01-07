@@ -3,6 +3,7 @@ package dal;
 import be.Movie;
 import be.dbConnector;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import javafx.scene.control.Alert;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -155,17 +156,23 @@ public class movieDAL {
     }
 
     // TODO
-    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
-
+    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) {
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
-            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET PersonalRating= '" + newPersonalRating + "' WHERE MovieTitle= '" + movieTitle + "'");
-            pSql.addBatch();
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET PersonalRating= '" + newPersonalRating + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
 
             // Update associations
-            // deleteAssociations(movieTitle);
-            // addAssociations(movieTitle, newGenres);
+            deleteAssociation(movieTitle);
+            addAssociation(movieTitle, newGenres);
+        } catch (SQLException throwables) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error!\n" + throwables.getMessage());
+
+            alert.showAndWait();
         }
     }
 

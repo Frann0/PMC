@@ -239,6 +239,12 @@ public class Controller implements Initializable {
 
     public void handleEditMovie(ActionEvent actionEvent) {
         Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneEditMovie);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(100);
+        if (!paneEditMovie.isVisible()){
+            fadeTransition.play();
+        }
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);
@@ -279,9 +285,9 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleSaveMovie(){
+    public void handleSaveMovie() throws SQLException {
         List<String> newGenres = new ArrayList<>();
-        if(!genreField.getPromptText().equals("Add genres!")){
+        if(!genreField.getText().isEmpty()){
             String tmpGenres = genreField.getText();
             String[] tmpArr = tmpGenres.split(",");
 
@@ -293,7 +299,19 @@ public class Controller implements Initializable {
         String rating = personalRatingField.getText();
         myMovieModel.updateMovie(movieTitle, newGenres, rating);
 
-        paneEditMovie.setVisible(false);
+        fadeoutEditPane();
+    }
+
+    private void fadeoutEditPane() {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneEditMovie);
+        fadeTransition.setFromValue(100);
+        fadeTransition.setToValue(0);
+        if (paneEditMovie.isVisible()){
+            fadeTransition.play();
+        }
+        fadeTransition.setOnFinished(ActionEvent -> {
+            paneEditMovie.setVisible(false);
+        });
         TitleBar.setLayoutX(335);
         TitleBar.setPrefWidth(800);
         titlePane.setPrefWidth(483);
@@ -301,11 +319,7 @@ public class Controller implements Initializable {
     }
 
     public void handleCancelMovie(){
-        paneEditMovie.setVisible(false);
-        TitleBar.setLayoutX(335);
-        TitleBar.setPrefWidth(800);
-        titlePane.setPrefWidth(483);
-        titleHbox.setPrefWidth(800);
+        fadeoutEditPane();
 
         //Resets all the fields back to default
         imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));

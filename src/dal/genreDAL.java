@@ -7,7 +7,9 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class genreDAL {
@@ -33,8 +35,17 @@ public class genreDAL {
     public void deleteGenre(){}
 
     // TODO
-    public List<String> getAllGenres(){
-        return null;
+    public List<String> getAllGenres() throws SQLException {
+        List<String> allGenres = new ArrayList<>();
+        try (Connection con = dbCon.getConnection()) {
+            PreparedStatement pSql = con.prepareStatement("SELECT * FROM Genre");
+            pSql.execute();
+            ResultSet resultSet = pSql.getResultSet();
+            while(resultSet.next()){
+                allGenres.add(resultSet.getString("genrename"));
+            }
+        }
+        return allGenres;
     }
 
     // TODO

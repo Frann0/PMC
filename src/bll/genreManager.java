@@ -1,22 +1,27 @@
 package bll;
 
-import be.Movie;
+
 import be.Playlist;
+import dal.genreDAL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class genreManager {
-    private genreManager myGenreManager;
-    private ObservableList<Playlist> allPlaylists;
-    private ObservableList<String> allGenres;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
-    public genreManager(){
-        myGenreManager = new genreManager();
-        allPlaylists = FXCollections.observableArrayList();
-        allGenres = FXCollections.observableArrayList();
+public class genreManager {
+    private genreDAL myGenreDAL;
+
+
+    public genreManager() throws IOException {
+        myGenreDAL = new genreDAL();
     }
 
-    // TODO getAllGenres()
+    public List<String> getAllGenres() throws SQLException {
+        return myGenreDAL.getAllGenres();
+    }
+
     // TODO getAllPlaylists()
     // TODO addGenre()
     // TODO deleteGenre()

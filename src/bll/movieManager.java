@@ -25,6 +25,8 @@ public class movieManager {
         return myMovieDAL.getAllMovies();
     }
 
+
+
     // TODO deleteMovie
     // TODO updateMovie
 

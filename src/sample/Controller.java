@@ -74,34 +74,28 @@ public class Controller implements Initializable {
     @FXML
     private JFXTextField personalRatingField;
     @FXML
+    private Label lblIMDBRating;
+    @FXML
     private Label lblIMDBRating1;
+
 
     private movieModel myMovieModel;
     private genreModel myGenreModel;
 
-    private final ObservableList<String> genres = FXCollections.observableArrayList();
-    private final ObservableList<Movie> movies = FXCollections.observableArrayList();
+    //private final ObservableList<String> genres = FXCollections.observableArrayList();
+    //private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             myMovieModel = new movieModel();
+            myGenreModel = new genreModel();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
         TitleBar.setPrefWidth(465);
         titlePane.setPrefWidth(150);
 
-        genres.add("Test");
-        genres.add("Test2");
-        genres.add("Test3");
-        genres.add("Test4");
-
-        ObservableList<String> Test = FXCollections.observableArrayList();
-        Test.add(genres.get(0));
-        Test.add(genres.get(1));
-
-        movies.add(new Movie("The Shawshank Redemption", "5", "C:/testpath"));
 
         tblClmTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblClmRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -113,8 +107,22 @@ public class Controller implements Initializable {
 
         titleHbox.setPrefWidth(800);
 
-        lstGenre.setItems(genres);
-        tblMoviesInGenre.setItems(movies);
+
+        try {
+            lstGenre.setItems(myGenreModel.getAllGenres());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        /*
+        try {
+            movies.addAll(myMovieModel.getAllMovies());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        //tblMoviesInGenre.setItems(movies);
+        */
+
     }
 
     public void handleGenreSelected(){
@@ -129,6 +137,8 @@ public class Controller implements Initializable {
             paneMovies.setVisible(true);
             lblMoviesInGenre.setText(lstGenre.getSelectionModel().getSelectedItem());
         }
+        tblMoviesInGenre.setItems(myMovieModel.moviesByGenre(lstGenre.getSelectionModel().getSelectedItem()));
+
     }
 
     public void handleMovieSelected(){
@@ -148,7 +158,7 @@ public class Controller implements Initializable {
             lblBigMovieTitle.setText(currentMovie.getTitle());
             imgPoster.setImage(currentMovie.getArtwork());
             lblMovieTitle.setText(currentMovie.getTitle());
-            lblMovieRating.setText(currentMovie.getRating());
+            lblIMDBRating.setText(currentMovie.getRating());
             lblMovieLastView.setText(currentMovie.getLastViewed().toString());
         }
     }
@@ -165,7 +175,7 @@ public class Controller implements Initializable {
     public void handleSearch(KeyEvent keyEvent) {
         Searcher searcher = new Searcher();
 
-        tblMoviesInGenre.setItems(searcher.search(movies, Search.getText()));
+        //tblMoviesInGenre.setItems(searcher.search(movies, Search.getText()));
 
     }
 

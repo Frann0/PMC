@@ -32,4 +32,14 @@ public class movieModel {
         allMovies.clear();
         allMovies.addAll(myMovieManager.getAllMovies());
     }
+
+    public ObservableList<Movie> moviesByGenre(String genre){
+        ObservableList<Movie> moviesByGenre = FXCollections.observableArrayList();
+        for(Movie mov : allMovies){
+            if(mov.getGenres().contains(genre)){
+                moviesByGenre.add(mov);
+            }
+        }
+        return moviesByGenre;
+    }
 }

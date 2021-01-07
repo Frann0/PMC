@@ -21,10 +21,9 @@ public class genreDAL {
 
 
 
-    // TODO
+
     public void addGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
-
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
             pSql.setString(1, genre);
             pSql.execute();

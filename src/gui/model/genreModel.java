@@ -22,6 +22,11 @@ public class genreModel {
         allGenres.addAll(myGenreManager.getAllGenres());
     }
 
+    public void addGenre(String genre) throws SQLException {
+        myGenreManager.addGenre(genre);
+        allGenres.add(genre);
+    }
+
     public ObservableList<String> getAllGenres() throws SQLException {
         return allGenres;
     }

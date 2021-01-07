@@ -82,6 +82,7 @@ public class Controller implements Initializable {
     private movieModel myMovieModel;
     private genreModel myGenreModel;
 
+
     //private final ObservableList<String> genres = FXCollections.observableArrayList();
     //private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
@@ -229,12 +230,40 @@ public class Controller implements Initializable {
     }
 
     public void handleAddGenre(ActionEvent actionEvent) {
+        TextInputDialog dialog = new TextInputDialog("Genre");
+        dialog.setTitle("Add genre");
+        dialog.setHeaderText("Add Genre");
+        dialog.setContentText("Please enter the genre you wish to add: ");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(genre -> {
+            try {
+                myGenreModel.addGenre(genre);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+
+
     }
 
     public void handleRemoveGenre(ActionEvent actionEvent) {
     }
 
     public void handleSaveMovie(){
+        Movie oldMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+        String oldGenres = "";
+        for(int i = 0; i < oldMovie.getGenres().size(); i++){
+            oldGenres += oldMovie.getGenres().get(i);
+        }
+
+        String newGenres; // if == old, do nothing
+        String newPersonalRating; // if == old do nothing.
+        //genre change
+
+        //rating
+
         paneEditMovie.setVisible(false);
         TitleBar.setLayoutX(335);
         TitleBar.setPrefWidth(800);
@@ -249,4 +278,6 @@ public class Controller implements Initializable {
         titlePane.setPrefWidth(483);
         titleHbox.setPrefWidth(800);
     }
+
+
 }

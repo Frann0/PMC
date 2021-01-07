@@ -21,9 +21,10 @@ public class genreDAL {
 
 
 
-
+    // TODO
     public void addGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
+
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
             pSql.setString(1, genre);
             pSql.execute();
@@ -31,7 +32,15 @@ public class genreDAL {
     }
 
     // TODO
-    public void deleteGenre(){}
+    public void deleteGenre(String genre) throws SQLException{
+        try(Connection con = dbCon.getConnection()) {
+
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM Genre WHERE genrename = ?; ");
+            pSql.setString(1,genre);
+            pSql.execute();
+        }
+
+    }
 
     // TODO
     public List<String> getAllGenres() throws SQLException {

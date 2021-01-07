@@ -105,7 +105,54 @@ public class movieDAL {
     }
 
     // TODO
-    public void deleteMovie(){}
+    public void deleteMovie(String title) throws SQLException {
+        try(Connection con = dbCon.getConnection()) {
+
+            deleteAssociation(title);
+
+            PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
+            pSql2.setString(1,title);
+            pSql2.execute();
+        }
+    }
+
+    //TODO
+    public void addAssociation(String movieTitle,List<String> genreList) throws SQLException {
+        try(Connection con = dbCon.getConnection()) {
+
+            if (genreList.size()==1) {
+                String genre = "";
+                genre = genreList.get(0);
+                PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
+                pSql.setString(1,movieTitle);
+                pSql.setString(2,genre);
+                pSql.execute();
+            }
+            else {
+                PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
+                for(int i = 0; i < genreList.size();i++) {
+
+                    String genre= genreList.get(i);
+                    pSql.setString(1,movieTitle);
+                    pSql.setString(2,genre);;
+                    pSql.addBatch();
+                }
+                pSql.executeBatch();
+
+            }
+        }
+    }
+
+    //TODO
+    public void deleteAssociation(String title) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
+
+            PreparedStatement pSql = con.prepareStatement("DELETE  FROM GenreMovie WHERE MovieTitle = ?");
+            pSql.setString(1, title);
+            pSql.execute();
+
+        }
+    }
 
     // TODO
     public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){

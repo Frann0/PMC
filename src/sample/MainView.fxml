@@ -66,11 +66,14 @@
                      </font>
                   </Label>
                   <JFXTextField fx:id="personalRatingField" focusColor="#5195ba" layoutX="126.0" layoutY="410.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="174.0" promptText="Not rated yet!" styleClass="search" unFocusColor="#b3bcc8" />
-                  <JFXTextField fx:id="genresField" focusColor="#5195ba" layoutX="105.0" layoutY="506.0" onKeyTyped="#handleSearch" prefHeight="25.0" prefWidth="200.0" promptText="Add genres!" styleClass="search" unFocusColor="#b3bcc8" />
+                  <JFXTextField fx:id="genreField" focusColor="#5195ba" layoutX="105.0" layoutY="506.0" prefHeight="25.0" prefWidth="200.0" promptText="Add genres!" styleClass="search" unFocusColor="#b3bcc8" />
                   <JFXTextArea editable="false" layoutX="37.0" layoutY="463.0" prefHeight="45.0" prefWidth="263.0" text="To add genres, type them here with a ',' &#10;seperating them.&#10;" wrapText="true" />
                   <Button layoutX="237.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleSaveMovie" prefHeight="27.0" prefWidth="69.0" styleClass="save" text="Save" />
                   <Button layoutX="157.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCancelMovie" prefHeight="27.0" prefWidth="69.0" styleClass="cancel" text="Cancel" />
-                  <Label fx:id="movieTitleField" layoutX="128.0" layoutY="384.0" prefHeight="25.0" prefWidth="174.0" />
+                  <Label fx:id="movieTitleField" layoutX="82.0" layoutY="380.0" prefHeight="25.0" prefWidth="220.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                </children>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -195,7 +198,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIconView glyphName="PLAY" layoutX="156.0" layoutY="562.0" onMouseClicked="#handlePlayMovie" size="30" styleClass="play" />
+                  <FontAwesomeIconView glyphName="PLAY" layoutX="151.0" layoutY="549.0" onMouseClicked="#handlePlayMovie" size="30" styleClass="play" />
                </children>
                <HBox.margin>
                   <Insets left="10.0" />

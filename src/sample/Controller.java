@@ -76,6 +76,8 @@ public class Controller implements Initializable {
     @FXML
     private JFXTextField personalRatingField;
     @FXML
+    private JFXTextField genreField;
+    @FXML
     private Label lblIMDBRating;
     @FXML
     private Label lblIMDBRating1;
@@ -224,11 +226,22 @@ public class Controller implements Initializable {
     }
 
     public void handleEditMovie(ActionEvent actionEvent) {
+        Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);
         titlePane.setPrefWidth(845);
         titleHbox.setPrefWidth(1135);
+
+        movieTitleField.setText(selectedMovie.getTitle());
+        if (!selectedMovie.getPersonalRating().isEmpty()){
+            personalRatingField.setText(selectedMovie.getPersonalRating());
+        }
+        lblIMDBRating1.setText(selectedMovie.getRating());
+        if (!selectedMovie.getGenres().isEmpty()){
+            //sets the genres without '[' and ']' at the start and end
+            genreField.setText(selectedMovie.getGenres().toString().substring(1,selectedMovie.getGenres().toString().length()-1));
+        }
 
 
     }

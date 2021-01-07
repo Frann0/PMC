@@ -224,7 +224,7 @@ public class Controller implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (selectedFile != null) {
-            Image poster = new Image(selectedFile.toString());
+            Image poster = new Image(selectedFile.toURI().toString());
             imgAddPoster.setImage(poster);
         }
 
@@ -305,6 +305,13 @@ public class Controller implements Initializable {
         TitleBar.setPrefWidth(800);
         titlePane.setPrefWidth(483);
         titleHbox.setPrefWidth(800);
+
+        //Resets all the fields back to default
+        imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
+        movieTitleField.setText("");
+        personalRatingField.setText("");
+        lblIMDBRating1.setText("");
+        genreField.setText("");
     }
 
 

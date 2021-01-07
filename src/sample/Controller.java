@@ -31,6 +31,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 
 public class Controller implements Initializable {
     @FXML
@@ -264,16 +265,22 @@ public class Controller implements Initializable {
     }
 
     public void handleRemoveGenre(ActionEvent actionEvent) {
+
     }
 
     public void handleSaveMovie(){
-        Movie oldMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
-        
-        //Update info
-        List<String> newGenres;
-        String newPersonalRating = ""; // if == old do nothing.
+        List<String> newGenres = new ArrayList<>();
+        if(!genreField.getPromptText().equals("Add genres!")){
+            String tmpGenres = genreField.getText();
+            String[] tmpArr = tmpGenres.split(",");
 
-        myMovieModel.updateMovie(oldMovie.getTitle(), newGenres, newPersonalRating);
+            for (int i = 0; i < tmpArr.length; i++){
+                newGenres.add(tmpArr[i].trim());
+            }
+        }
+        String movieTitle = movieTitleField.getText();
+        String rating = personalRatingField.getText();
+        myMovieModel.updateMovie(movieTitle, newGenres, rating);
 
         paneEditMovie.setVisible(false);
         TitleBar.setLayoutX(335);

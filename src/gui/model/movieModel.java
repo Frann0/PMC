@@ -22,6 +22,7 @@ public class movieModel {
 
     public void addMovie(String movieTitle, String imdbRating, String filePath) throws SQLException {
         myMovieManager.addMovie(movieTitle, imdbRating, filePath);
+        updateAllMovies();
     }
 
     public List<Movie> getAllMovies() throws SQLException {
@@ -43,18 +44,21 @@ public class movieModel {
         return moviesByGenre;
     }
 
-    public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){
-        String[] tmpGenres = newGenres.split(",");
-        List<String> newGenreList = new ArrayList<>();
-        for (int i = 0; i < tmpGenres.length; i++){
-            newGenreList.add(tmpGenres[i].toUpperCase());
-        }
-
+    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating){
+        // Update movie info in allMovies
         for(Movie mov : allMovies){
             if (mov.getTitle().equals(movieTitle)){
                 mov.setPersonalRating(newPersonalRating);
-                mov.setGenres(newGenreList);
+                mov.setGenres(newGenres);
             }
         }
+
+        // Update movie info in database
+        List<String> newGenreList = new ArrayList<>();
+        for (String genre : newGenres){
+            newGenreList.add(genre.toUpperCase());
+        }
+        myMovieManager.updateMovie(movieTitle, newGenreList, newPersonalRating);
+
     }
 }

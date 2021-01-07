@@ -98,6 +98,7 @@
 
 .search{
     -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: #b3bcc8;
 }
 
 .exit:hover{
@@ -145,4 +146,12 @@
 .uiButtons:hover{
     -fx-border-color: white;
     -fx-text-fill: white;
+}
+
+.play{
+    -fx-fill: #b3bcc8;
+}
+
+.play:hover{
+    -fx-fill: White;
 }

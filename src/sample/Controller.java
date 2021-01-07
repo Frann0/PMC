@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -227,6 +229,8 @@ public class Controller implements Initializable {
         TitleBar.setPrefWidth(1135);
         titlePane.setPrefWidth(845);
         titleHbox.setPrefWidth(1135);
+
+
     }
 
     public void handleAddGenre(ActionEvent actionEvent) {
@@ -280,4 +284,8 @@ public class Controller implements Initializable {
     }
 
 
+    public void handlePlayMovie(MouseEvent mouseEvent) throws IOException {
+        Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+        Desktop.getDesktop().open(new File(selectedMovie.getFilePath()));
+    }
 }

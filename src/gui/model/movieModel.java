@@ -42,4 +42,19 @@ public class movieModel {
         }
         return moviesByGenre;
     }
+
+    public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){
+        String[] tmpGenres = newGenres.split(",");
+        List<String> newGenreList = new ArrayList<>();
+        for (int i = 0; i < tmpGenres.length; i++){
+            newGenreList.add(tmpGenres[i].toUpperCase());
+        }
+
+        for(Movie mov : allMovies){
+            if (mov.getTitle().equals(movieTitle)){
+                mov.setPersonalRating(newPersonalRating);
+                mov.setGenres(newGenreList);
+            }
+        }
+    }
 }

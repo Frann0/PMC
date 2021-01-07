@@ -25,7 +25,9 @@ public class movieManager {
         return myMovieDAL.getAllMovies();
     }
 
-
+    public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){
+        myMovieDAL.updateMovie(movieTitle, newGenres, newPersonalRating);
+    }
 
     // TODO deleteMovie
     // TODO updateMovie

@@ -108,7 +108,16 @@ public class movieDAL {
     public void deleteMovie(){}
 
     // TODO
-    public void updateMovie(){}
+    public void updateMovie(String movieTitle, String newGenres, String newPersonalRating){
+        String pSql = "INSERT INTO users (id, user_name, password) VALUES(?,?,?)";
+        PreparedStatement statement = connection.preparedStatement(query);
+        for(User user: userList){
+            statement.setString(1, user.getId()); //1 is the first ? (1 based counting)
+            statement.setString(2, user.getUserName());
+            statement.setString(3, user.getPassword());
+            statement.addBatch();
+        }
+    }
 
 
 }

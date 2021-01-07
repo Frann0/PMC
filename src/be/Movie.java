@@ -58,4 +58,6 @@ public class Movie {
     }
 
     public void setGenres(List<String> genres){this.genres = genres;}
+
+    public void setPersonalRating(String personalRating){this.personalRating.set(personalRating);}
 }

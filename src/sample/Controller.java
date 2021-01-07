@@ -40,6 +40,8 @@ public class Controller implements Initializable {
     @FXML
     private ImageView imgPoster;
     @FXML
+    private ImageView imgAddPoster;
+    @FXML
     private Label lblMovieTitle;
     @FXML
     private Label lblMovieRating;
@@ -216,7 +218,16 @@ public class Controller implements Initializable {
     }
 
     public void HandleAddMoviePoster(MouseEvent mouseEvent) {
-        System.out.println("Test");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select a movie poster for the movie");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (.jpg, .png, jpeg)", "*.jpg", "*.png", "*.jpeg");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+        if (selectedFile != null) {
+            Image poster = new Image(selectedFile.toURI().toString());
+            imgAddPoster.setImage(poster);
+        }
+
     }
 
     public void handleRemoveMovie(ActionEvent actionEvent) {
@@ -288,6 +299,13 @@ public class Controller implements Initializable {
         TitleBar.setPrefWidth(800);
         titlePane.setPrefWidth(483);
         titleHbox.setPrefWidth(800);
+
+        //Resets all the fields back to default
+        imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
+        movieTitleField.setText("");
+        personalRatingField.setText("");
+        lblIMDBRating1.setText("");
+        genreField.setText("");
     }
 
 

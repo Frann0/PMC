@@ -29,6 +29,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 
 public class Controller implements Initializable {
     @FXML
@@ -150,6 +151,8 @@ public class Controller implements Initializable {
         }
 
         if (tblMoviesInGenre.getSelectionModel().getSelectedItem() != null) {
+            paneEditMovie.setVisible(false);
+            TitleBar.setLayoutX(335);
             titlePane.setPrefWidth(490);
             titleHbox.setPrefWidth(800);
             TitleBar.setPrefWidth(800);
@@ -187,26 +190,34 @@ public class Controller implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
         // Reformatting filePath to get movie info.
-        String filePath = selectedFile.getPath();
-        String[] movieInfoTemp = filePath.split("\\\\");
-        String[] movieInfo = movieInfoTemp[movieInfoTemp.length-1].split("-");
-        String imdbRating = movieInfo[0].trim();
-        String[] movieTitleTemp = movieInfo[1].split("\\.");
-        String movieTitle = movieTitleTemp[0].trim();
+        if (selectedFile != null) {
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneEditMovie);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(100);
+            if (!paneEditMovie.isVisible()){
+                fadeTransition.play();
+            }
+            String filePath = selectedFile.getPath();
+            String[] movieInfoTemp = filePath.split("\\\\");
+            String[] movieInfo = movieInfoTemp[movieInfoTemp.length - 1].split("-");
+            String imdbRating = movieInfo[0].trim();
+            String[] movieTitleTemp = movieInfo[1].split("\\.");
+            String movieTitle = movieTitleTemp[0].trim();
 
-        myMovieModel.addMovie(movieTitle, imdbRating, filePath);
+            myMovieModel.addMovie(movieTitle, imdbRating, filePath);
 
-        // TODO Make if statement to check if title is already in allMovies
-        // TODO Update fields in editWindow
+            // TODO Make if statement to check if title is already in allMovies
+            // TODO Update fields in editWindow
 
-        movieTitleField.setText(movieTitle);
-        lblIMDBRating1.setText(imdbRating);
+            movieTitleField.setText(movieTitle);
+            lblIMDBRating1.setText(imdbRating);
 
-        paneEditMovie.setVisible(true);
-        TitleBar.setLayoutX(0);
-        TitleBar.setPrefWidth(1135);
-        titlePane.setPrefWidth(845);
-        titleHbox.setPrefWidth(1135);
+            paneEditMovie.setVisible(true);
+            TitleBar.setLayoutX(0);
+            TitleBar.setPrefWidth(1135);
+            titlePane.setPrefWidth(845);
+            titleHbox.setPrefWidth(1135);
+        }
 
     }
 
@@ -221,6 +232,16 @@ public class Controller implements Initializable {
     }
 
     public void handleEditMovie(ActionEvent actionEvent) {
+<<<<<<< Updated upstream
+=======
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneEditMovie);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(100);
+        if (!paneEditMovie.isVisible()){
+            fadeTransition.play();
+        }
+        Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+>>>>>>> Stashed changes
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);
@@ -229,9 +250,28 @@ public class Controller implements Initializable {
     }
 
     public void handleAddGenre(ActionEvent actionEvent) {
+<<<<<<< Updated upstream
+=======
+        TextInputDialog dialog = new TextInputDialog("Genre");
+        dialog.setTitle("Add genre");
+        dialog.setHeaderText("Add Genre");
+        dialog.setContentText("Please enter the genre you wish to add: ");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(genre -> {
+            try {
+                myGenreModel.addGenre(genre);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+>>>>>>> Stashed changes
     }
 
     public void handleRemoveGenre(ActionEvent actionEvent) {
+
+
     }
 
     public void handleSaveMovie(){
@@ -243,10 +283,36 @@ public class Controller implements Initializable {
     }
 
     public void handleCancelMovie(){
-        paneEditMovie.setVisible(false);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneEditMovie);
+        fadeTransition.setFromValue(100);
+        fadeTransition.setToValue(0);
+        if (paneEditMovie.isVisible()){
+            fadeTransition.play();
+        }
+        fadeTransition.setOnFinished(ActionEvent -> {
+            paneEditMovie.setVisible(false);
+        });
+        
         TitleBar.setLayoutX(335);
         TitleBar.setPrefWidth(800);
         titlePane.setPrefWidth(483);
         titleHbox.setPrefWidth(800);
+<<<<<<< Updated upstream
+=======
+
+        //Resets all the fields back to default
+        imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
+        movieTitleField.setText("");
+        personalRatingField.setText("");
+        lblIMDBRating1.setText("");
+        genreField.setText("");
+
+    }
+
+
+    public void handlePlayMovie(MouseEvent mouseEvent) throws IOException {
+        Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+        Desktop.getDesktop().open(new File(selectedMovie.getFilePath()));
+>>>>>>> Stashed changes
     }
 }

@@ -1,10 +1,9 @@
 package bll;
 
 
-import be.Playlist;
+
 import dal.genreDAL;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,6 +15,10 @@ public class genreManager {
 
     public genreManager() throws IOException {
         myGenreDAL = new genreDAL();
+    }
+
+    public void addGenre(String genre) throws SQLException {
+        myGenreDAL.addGenre(genre);
     }
 
     public List<String> getAllGenres() throws SQLException {

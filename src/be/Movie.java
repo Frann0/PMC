@@ -49,10 +49,6 @@ public class Movie {
         return imdbRating.get() + " / " + maxRating;
     }
 
-    public String getPersonalRating() {
-        return personalRating.get();
-    }
-
     public LocalDate getLastViewed() {
         return LocalDate.now();
     }
@@ -63,8 +59,5 @@ public class Movie {
 
     public void setGenres(List<String> genres){this.genres = genres;}
 
-    public String getFilePath() {
-        return filePath.get();
-    }
+    public void setPersonalRating(String personalRating){this.personalRating.set(personalRating);}
 }
-

@@ -107,8 +107,7 @@ public class movieDAL {
     // TODO
     public void deleteMovie(String title) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
-
-            deleteAssociation(title);
+            deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
             pSql2.setString(1,title);
@@ -117,7 +116,7 @@ public class movieDAL {
     }
 
     //TODO
-    public void addAssociation(String movieTitle,List<String> genreList) throws SQLException {
+    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
 
             if (genreList.size()==1) {
@@ -143,8 +142,8 @@ public class movieDAL {
         }
     }
 
-    //TODO
-    public void deleteAssociation(String title) throws SQLException {
+
+    public void deleteAssociations(String title) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
@@ -164,8 +163,8 @@ public class movieDAL {
             pSql.execute();
 
             // Update associations
-            deleteAssociation(movieTitle);
-            addAssociation(movieTitle, newGenres);
+            deleteAssociations(movieTitle);
+            addAssociations(movieTitle, newGenres);
         }
     }
 

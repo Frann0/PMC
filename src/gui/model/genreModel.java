@@ -36,11 +36,13 @@ public class genreModel {
         allGenres.addAll(myGenreManager.getAllGenres());
     }
 
-    // TODO getAllPlaylists()
-    // TODO addGenre()
-    // TODO deleteGenre()
-    // TODO addAssociation()
-    // TODO deleteAssociation()
+    public void deleteGenre(String genre){
+        allGenres.remove(genre);
+        try {
+            myGenreManager.deleteGenre(genre);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
-    // TODO updateAllPlaylists()
 }

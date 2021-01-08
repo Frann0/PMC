@@ -25,6 +25,10 @@ public class movieModel {
         updateAllMovies();
     }
 
+    public void deleteMovie(String title){
+        myMovieManager.deleteMovie(title);
+    }
+
     public List<Movie> getAllMovies() throws SQLException {
         return myMovieManager.getAllMovies();
     }
@@ -52,13 +56,7 @@ public class movieModel {
                 mov.setGenres(newGenres);
             }
         }
-
         // Update movie info in database
-        List<String> newGenreList = new ArrayList<>();
-        for (String genre : newGenres){
-            newGenreList.add(genre.toUpperCase());
-        }
-        myMovieManager.updateMovie(movieTitle, newGenreList, newPersonalRating);
-
+        myMovieManager.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 }

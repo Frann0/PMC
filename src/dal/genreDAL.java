@@ -21,28 +21,34 @@ public class genreDAL {
 
 
 
-    // TODO
+
     public void addGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
-
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
             pSql.setString(1, genre);
             pSql.execute();
         }
     }
 
-    // TODO
-    public void deleteGenre(String genre) throws SQLException{
-        try(Connection con = dbCon.getConnection()) {
+    public void deleteAssociationByGenre(String genre) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
 
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE GenreName = ?");
+            pSql.setString(1, genre);
+            pSql.execute();
+
+        }
+    }
+
+    public void deleteGenre(String genre) throws SQLException{
+        deleteAssociationByGenre(genre);
+        try(Connection con = dbCon.getConnection()) {
             PreparedStatement pSql = con.prepareStatement("DELETE FROM Genre WHERE genrename = ?; ");
             pSql.setString(1,genre);
             pSql.execute();
         }
-
     }
 
-    // TODO
     public List<String> getAllGenres() throws SQLException {
         List<String> allGenres = new ArrayList<>();
         try (Connection con = dbCon.getConnection()) {
@@ -55,12 +61,4 @@ public class genreDAL {
         }
         return allGenres;
     }
-
-    // TODO
-    public List<Playlist> getPlaylist(){
-        return null;
-    }
-
-    // TODO
-    // TODO
 }

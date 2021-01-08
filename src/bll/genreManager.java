@@ -25,12 +25,11 @@ public class genreManager {
         return myGenreDAL.getAllGenres();
     }
 
-    // TODO getAllPlaylists()
-    // TODO addGenre()
-    // TODO deleteGenre()
-    // TODO addAssociation()
-    // TODO deleteAssociation()
-    // TODO updateAllGenres()
-    // TODO updateAllPlaylists()
+    public void deleteGenre(String genre) throws SQLException {
+        myGenreDAL.deleteGenre(genre);
+    }
+
+
+
 
 }

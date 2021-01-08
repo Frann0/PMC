@@ -29,6 +29,10 @@ public class movieManager {
         myMovieDAL.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 
+    public void deleteMovie(String title) throws SQLException {
+        myMovieDAL.deleteMovie(title);
+    }
+
     // TODO deleteMovie
     // TODO updateMovie
 

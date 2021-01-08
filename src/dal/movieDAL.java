@@ -3,7 +3,6 @@ package dal;
 import be.Movie;
 import be.dbConnector;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import javafx.scene.control.Alert;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -108,8 +107,7 @@ public class movieDAL {
     // TODO
     public void deleteMovie(String title) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
-
-            deleteAssociation(title);
+            deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
             pSql2.setString(1,title);
@@ -118,7 +116,7 @@ public class movieDAL {
     }
 
     //TODO
-    public void addAssociation(String movieTitle,List<String> genreList) throws SQLException {
+    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
 
             if (genreList.size()==1) {
@@ -144,11 +142,11 @@ public class movieDAL {
         }
     }
 
-    //TODO
-    public void deleteAssociation(String title) throws SQLException {
+
+    public void deleteAssociations(String title) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
-            PreparedStatement pSql = con.prepareStatement("DELETE  FROM GenreMovie WHERE MovieTitle = ?");
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
 
@@ -156,7 +154,8 @@ public class movieDAL {
     }
 
     // TODO
-    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) {
+    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
+
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
@@ -164,15 +163,8 @@ public class movieDAL {
             pSql.execute();
 
             // Update associations
-            deleteAssociation(movieTitle);
-            addAssociation(movieTitle, newGenres);
-        } catch (SQLException throwables) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Ooops, there was an error!\n" + throwables.getMessage());
-
-            alert.showAndWait();
+            deleteAssociations(movieTitle);
+            addAssociations(movieTitle, newGenres);
         }
     }
 

@@ -27,6 +27,14 @@ public class genreModel {
         allGenres.add(genre);
     }
 
+    public String getGenresString(){
+        String genres ="";
+        for (String str : allGenres){
+            genres += str +", ";
+        }
+        return genres;
+    }
+
     public ObservableList<String> getAllGenres() throws SQLException {
         return allGenres;
     }

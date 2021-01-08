@@ -25,7 +25,7 @@ public class movieModel {
         updateAllMovies();
     }
 
-    public void deleteMovie(String title){
+    public void deleteMovie(String title) throws SQLException {
         myMovieManager.deleteMovie(title);
     }
 

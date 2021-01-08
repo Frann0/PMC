@@ -2,6 +2,7 @@ package sample;
 
 import be.Movie;
 import bll.Searcher;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import gui.model.genreModel;
 import gui.model.movieModel;
@@ -80,6 +81,8 @@ public class Controller implements Initializable {
     private JFXTextField personalRatingField;
     @FXML
     private JFXTextField genreField;
+    @FXML
+    private JFXTextArea genreAddTxtArea;
     @FXML
     private Label lblIMDBRating;
     @FXML
@@ -227,12 +230,14 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleRemoveMovie(ActionEvent actionEvent) {
+    public void handleRemoveMovie(ActionEvent actionEvent) throws SQLException {
         myMovieModel.deleteMovie(tblMoviesInGenre.getSelectionModel().getSelectedItem().getTitle());
     }
 
     public void handleEditMovie(ActionEvent actionEvent) {
         Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
+        genreAddTxtArea.setText("To add genres, type them here with a ',' separating them" +
+                "available genres are: " + myGenreModel.getGenresString());
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);

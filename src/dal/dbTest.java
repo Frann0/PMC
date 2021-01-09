@@ -5,7 +5,9 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class dbTest {
@@ -13,7 +15,15 @@ public class dbTest {
 
 
 
-
+    public static String[] splitSearch(String query){
+        String[] queryTokens = new String[50];
+        if(!query.contains(" ")){
+            queryTokens[0] = query;
+        } else{
+            queryTokens = query.split(" ");
+        }
+        return queryTokens;
+    }
 
 
 
@@ -29,18 +39,43 @@ public class dbTest {
         genreDAL myGenreDAL = new genreDAL();
         movieDAL myMovieDAL = new movieDAL();
 
-        //myGenreDAL.addGenre("Disco");
-        //myMovieDAL.addMovie("Smurfs", "9.9", "C:/yeah/docs/Smurfs.mp4");
-        //myMovieDAL.addMovie(new Movie(movieTitle, imdbRating, filePath, personalRating, lastViewed));
 
         List<Movie> allMovs = myMovieDAL.getAllMovies();
-        for(Movie mov : allMovs){
-            System.out.println(mov.getTitle());
-            for(int i = 0; i < mov.getGenres().size(); i++){
-                System.out.println("Genre " + i + ": " + mov.getGenres().get(i));
+        List<Movie> filterMovs = new ArrayList<>();
+        String[] queryTokens = new String[50];
+        String search = "comedy ar";
+        if(search.contains(" ")){
+            queryTokens = splitSearch(search);
+        }
+
+
+        for (Movie mov : allMovs){
+            boolean match = true;
+            if(search.contains(" ")) {
+                for (int i = 0; i < queryTokens.length; i++) {
+                    if (!mov.getMovieString().contains(queryTokens[i])) {
+                        match = false;
+                    }
+                }
+            } else {
+                match = mov.getMovieString().contains(search);
+            }
+            if (match){
+                filterMovs.add(mov);
             }
         }
+        for (Movie mov : filterMovs){
+            System.out.println(mov.getTitle());
+        }
+
+
+
+
+
+
     }
+
+
 }
 
 

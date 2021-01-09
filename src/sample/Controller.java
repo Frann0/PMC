@@ -4,6 +4,7 @@ import be.Movie;
 import bll.Searcher;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import gui.controller.NotificationViewController;
 import gui.model.genreModel;
 import gui.model.movieModel;
 import javafx.animation.FadeTransition;
@@ -11,7 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,7 +25,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -112,7 +117,11 @@ public class Controller implements Initializable {
         paneEditMovie.setVisible(false);
 
         titleHbox.setPrefWidth(800);
-
+        try {
+            qualityControl();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             lstGenre.setItems(myGenreModel.getAllGenres());
@@ -333,5 +342,22 @@ public class Controller implements Initializable {
     public void handlePlayMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
         Desktop.getDesktop().open(new File(selectedMovie.getFilePath()));
+    }
+
+    public void qualityControl() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/gui/view/NotificationView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
+
+        NotificationViewController controller = fxmlLoader.getController();
+        //controller.setOldMovies(myMovieModel.getOldMovies());
+        //controller.setBadMovies(myMovieModel.getBadMovies());
+
+
+
     }
 }

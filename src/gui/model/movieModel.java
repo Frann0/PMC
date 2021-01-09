@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,4 +61,37 @@ public class movieModel {
         // Update movie info in database
         myMovieManager.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
+
+    public String getOldMovies(){
+        String oldMovies = "";
+
+        for (Movie mov : allMovies){
+            if(mov.getLastViewed() != null){
+                if (mov.getLastViewed().plusYears(2).compareTo(LocalDate.now()) < 0){
+                    String movieString = mov.getTitle() + " was last seen on: " + mov.getLastViewed() + ".";
+                    oldMovies += movieString + "\r\n";
+                }
+            }
+        }
+        return oldMovies;
+    }
+
+    /*
+    public String getBadMovies(){
+        String badMovies = null;
+
+        for (Movie mov : allMovies){
+            if(mov.getPersonalRating() != null){
+                double personalRating = Double.parseDouble(mov.getPersonalRating());
+                if(personalRating < 5){
+                    String movieString = "";
+                    movieString = mov.getTitle() + " has a personal rating of: " + mov.getPersonalRating() + ".";
+                    badMovies += movieString + "\r\n";
+                }
+            }
+        }
+        return badMovies;
+    }
+
+     */
 }

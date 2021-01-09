@@ -13,11 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Movie {
-    private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
+    //private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
     private final StringProperty title = new SimpleStringProperty("");
     private final StringProperty imdbRating = new SimpleStringProperty("");
     private final StringProperty personalRating = new SimpleStringProperty("");
-    private final String maxRating = "10";
+    //private final String maxRating = "10";
     private List<String> genres = new ArrayList<>();
     private LocalDate lastViewed;
     private final StringProperty filePath = new SimpleStringProperty("");
@@ -54,7 +54,7 @@ public class Movie {
     }
 
     public String getRating() {
-        return imdbRating.get() + " / " + maxRating;
+        return imdbRating.get() /* + " / " + maxRating*/;
     }
 
     public LocalDate getLastViewed() {
@@ -66,6 +66,14 @@ public class Movie {
     }
 
     public void setGenres(List<String> genres){this.genres = genres;}
+
+    public String getMovieString(){
+        String movieString = getTitle() + " " + getRating() + " " + getPersonalRating() + " ";
+        for (String genre : this.genres){
+            movieString += genre + " ";
+        }
+        return movieString.toLowerCase();
+    }
 
     public void setPersonalRating(String personalRating){this.personalRating.set(personalRating);}
 }

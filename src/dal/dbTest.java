@@ -39,7 +39,7 @@ public class dbTest {
         genreDAL myGenreDAL = new genreDAL();
         movieDAL myMovieDAL = new movieDAL();
 
-
+        /*
         List<Movie> allMovs = myMovieDAL.getAllMovies();
         List<Movie> filterMovs = new ArrayList<>();
         String[] queryTokens = new String[50];
@@ -67,11 +67,37 @@ public class dbTest {
         for (Movie mov : filterMovs){
             System.out.println(mov.getTitle());
         }
+        */
 
+        /*
+        String srch = "drama";
 
+        String[] tmpArr = srch.split(" ");
+        List<String> filterStrings = new ArrayList<>();
+        int rating = -1;
 
+        for (int i = 0; i<tmpArr.length; i++){
+            try{
+                rating = Integer.parseInt(tmpArr[i]);
+            }catch(Exception ex){
+                if(tmpArr[i] != null){
+                    filterStrings.add(tmpArr[i]);
+                }
+            }
+        }
 
+        for (int i = 0; i < filterStrings.size(); i++){
+            System.out.println(filterStrings.get(i));
+        }
+        System.out.println(rating);
 
+        */
+
+        List<String> test = new ArrayList<>();
+
+        if(test.isEmpty()){
+            System.out.println("tjek");
+        }
 
     }
 

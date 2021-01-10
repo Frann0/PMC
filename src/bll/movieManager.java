@@ -17,7 +17,7 @@ public class movieManager {
         myMovieDAL = new movieDAL();
     }
 
-    public void addMovie(String movieTitle, String imdbRating, String filePath) throws SQLException {
+    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         myMovieDAL.addMovie(movieTitle, imdbRating, filePath);
     }
 
@@ -25,7 +25,7 @@ public class movieManager {
         return myMovieDAL.getAllMovies();
     }
 
-    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
         myMovieDAL.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 

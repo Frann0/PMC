@@ -5,7 +5,6 @@ import dal.movieDAL;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class movieManager {
@@ -23,7 +22,7 @@ public class movieManager {
      * @param filePath Filepath of the movie to be added.
      * @throws SQLException
      */
-    public void addMovie(String movieTitle, int imdbRating, String filePath) {
+    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         myMovieDAL.addMovie(movieTitle, imdbRating, filePath);
     }
 
@@ -32,7 +31,7 @@ public class movieManager {
      * @return a List<Movie> with all movies.
      * @throws SQLException
      */
-    public List<Movie> getAllMovies() {
+    public List<Movie> getAllMovies() throws SQLException {
         return myMovieDAL.getAllMovies();
     }
 
@@ -43,24 +42,20 @@ public class movieManager {
      * @param newPersonalRating New personal rating of the movie to be updated.
      * @throws SQLException
      */
-    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) {
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
         myMovieDAL.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 
     /**
      * Delete a movie from the database.
      * @param title Title of the movie to be deleted.
+     * @throws SQLException
      */
-    public void deleteMovie(String title) {
+    public void deleteMovie(String title) throws SQLException {
         myMovieDAL.deleteMovie(title);
     }
 
-    /**
-     * Update the LastViewed on a movie in the database.
-     * @param movieTitle Title of the movie you update lastViewed on.
-     * @param now the data from "now"
-     */
-    public void updateLastViewed(String movieTitle, LocalDate now){
-        myMovieDAL.updateLastViewed(movieTitle, now);
+    public void updateArtPath(String movieTitle, String path) throws SQLException {
+        myMovieDAL.updateArtPath(movieTitle, path);
     }
 }

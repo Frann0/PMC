@@ -251,8 +251,8 @@ public class movieModel {
         return myMovieSearcher.executeSearch(mov, search);
     }
 
-    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
-        myMovieManager.updateLastViewed(movieTitle, now);
+    public void updateArtPath(String movieTitle, String path) throws SQLException {
+        myMovieManager.updateArtPath(movieTitle, path);
     }
 
     /*

@@ -93,11 +93,6 @@ public class dbTest {
 
         */
 
-        List<String> test = new ArrayList<>();
-
-        if(test.isEmpty()){
-            System.out.println("tjek");
-        }
 
     }
 

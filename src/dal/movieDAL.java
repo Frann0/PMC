@@ -150,13 +150,10 @@ public class movieDAL {
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
-
         }
     }
 
-
     public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
-
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating

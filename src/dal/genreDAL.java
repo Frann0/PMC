@@ -1,8 +1,6 @@
 package dal;
 
-import be.Playlist;
 import be.dbConnector;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
 import java.sql.Connection;

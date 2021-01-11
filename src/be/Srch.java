@@ -17,7 +17,10 @@ public class Srch {
 
         for (int i = 0; i < tmpArr.length; i++) {
             try {
-                rating = Integer.parseInt(tmpArr[i]);
+                if(Integer.parseInt(tmpArr[i]) > rating){
+                    rating = Integer.parseInt(tmpArr[i]);
+                }
+
             } catch (Exception ex) {
                     if (isItAGenre(tmpArr[i])) {
                         genreTokens.add(tmpArr[i]);

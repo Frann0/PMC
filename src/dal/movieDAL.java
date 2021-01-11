@@ -154,7 +154,7 @@ public class movieDAL {
         }
     }
 
-    // TODO
+
     public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
 
 

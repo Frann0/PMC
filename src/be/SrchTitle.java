@@ -6,12 +6,24 @@ public class SrchTitle implements ISrch {
 
     @Override
     public boolean compareMovie(Movie movie, Srch search) {
+        boolean[] tokenMatch = new boolean[search.getFilterTokens().size()];
 
         for (int i = 0; i < search.getFilterTokens().size(); i++){
-            if(movie.getTitle().toLowerCase().contains(search.getFilterTokens().get(i))){
-                return true;
+            tokenMatch[i] = movie.getTitle().toLowerCase().contains(search.getFilterTokens().get(i));
+        }
+        boolean match = false;
+        for(boolean bool : tokenMatch){
+            if (bool){
+                match = bool;
             }
         }
-        return false;
+        // If any filterToken does not match, false is returned.
+        for(boolean bool : tokenMatch){
+            if(!bool){
+                match = bool;
+            }
+        }
+
+        return match;
     }
 }

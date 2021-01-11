@@ -50,12 +50,16 @@ public class movieManager {
     /**
      * Delete a movie from the database.
      * @param title Title of the movie to be deleted.
-     * @throws SQLException
      */
     public void deleteMovie(String title) {
         myMovieDAL.deleteMovie(title);
     }
 
+    /**
+     * Update the LastViewed on a movie in the database.
+     * @param movieTitle Title of the movie you update lastViewed on.
+     * @param now the data from "now"
+     */
     public void updateLastViewed(String movieTitle, LocalDate now){
         myMovieDAL.updateLastViewed(movieTitle, now);
     }

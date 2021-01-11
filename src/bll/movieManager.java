@@ -4,8 +4,6 @@ import be.Movie;
 import dal.movieDAL;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,7 +31,5 @@ public class movieManager {
         myMovieDAL.deleteMovie(title);
     }
 
-    // TODO deleteMovie
-    // TODO updateMovie
 
 }

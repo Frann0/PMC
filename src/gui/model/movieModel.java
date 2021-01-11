@@ -50,6 +50,32 @@ public class movieModel {
         return moviesByGenre;
     }
 
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
+        // Update movie info in allMovies
+        for(Movie mov : allMovies){
+            if (mov.getTitle().equals(movieTitle)){
+                mov.setPersonalRating(newPersonalRating);
+                mov.setGenres(newGenres);
+            }
+        }
+        // Update movie info in database
+        myMovieManager.updateMovie(movieTitle, newGenres, newPersonalRating);
+    }
+
+    public String getOldMovies(){
+        String oldMovies = "";
+
+        for (Movie mov : allMovies){
+            if(mov.getLastViewed() != null){
+                if (mov.getLastViewed().plusYears(2).compareTo(LocalDate.now()) < 0){
+                    String movieString = mov.getTitle() + " was last seen on: " + mov.getLastViewed() + ".";
+                    oldMovies += movieString + "\r\n";
+                }
+            }
+        }
+        return oldMovies;
+    }
+
     public ObservableList<Movie> movieSearch(Srch search) throws IOException {
         ObservableList<Movie> searchedMovies = FXCollections.observableArrayList();
         int searchtype = determineSearchType(search);
@@ -95,7 +121,7 @@ public class movieModel {
                 //Rating + genre + title
                 case 7:
                     if(titleMatch(mov, search) && genreMatch(mov, search) &&
-                    ratingMatch(mov, search)){
+                            ratingMatch(mov, search)){
                         searchedMovies.add(mov);
                     }
                     break;
@@ -106,68 +132,42 @@ public class movieModel {
         return searchedMovies;
     }
 
-    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
-        // Update movie info in allMovies
-        for(Movie mov : allMovies){
-            if (mov.getTitle().equals(movieTitle)){
-                mov.setPersonalRating(newPersonalRating);
-                mov.setGenres(newGenres);
-            }
-        }
-        // Update movie info in database
-        myMovieManager.updateMovie(movieTitle, newGenres, newPersonalRating);
-    }
-
-    public String getOldMovies(){
-        String oldMovies = "";
-
-        for (Movie mov : allMovies){
-            if(mov.getLastViewed() != null){
-                if (mov.getLastViewed().plusYears(2).compareTo(LocalDate.now()) < 0){
-                    String movieString = mov.getTitle() + " was last seen on: " + mov.getLastViewed() + ".";
-                    oldMovies += movieString + "\r\n";
-                }
-            }
-        }
-        return oldMovies;
-    }
-
     private int determineSearchType(Srch search){
         int searchType = 0;
 
         // Only search rating
-        if (search.getRating() != -1 && search.getFilterStrings().isEmpty()
+        if (search.getRating() != -1 && search.getFilterTokens().isEmpty()
         && search.getGenreTokens().isEmpty()){
             searchType = 1;
         }
         // Only search rating + genre
-        else if (search.getRating() != -1 && search.getFilterStrings().isEmpty()
+        else if (search.getRating() != -1 && search.getFilterTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 2;
         }
         // Only search rating + title
-        else if (search.getRating() != -1 && !search.getFilterStrings().isEmpty()
+        else if (search.getRating() != -1 && !search.getFilterTokens().isEmpty()
                 && search.getGenreTokens().isEmpty()){
             searchType = 3;
         }
         // Only search title + genre
-        else if (search.getRating() == -1 && !search.getFilterStrings().isEmpty()
+        else if (search.getRating() == -1 && !search.getFilterTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 4;
         }
         // Only search title
-        else if (search.getRating() == -1 && !search.getFilterStrings().isEmpty()
+        else if (search.getRating() == -1 && !search.getFilterTokens().isEmpty()
                 && search.getGenreTokens().isEmpty()){
             searchType = 5;
         }
         // Only search genre
-        else if (search.getRating() == -1 && search.getFilterStrings().isEmpty()
+        else if (search.getRating() == -1 && search.getFilterTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
 
             searchType = 6;
         }
         // Search rating + title + genre
-        else if (search.getRating() != -1 && !search.getFilterStrings().isEmpty()
+        else if (search.getRating() != -1 && !search.getFilterTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 7;
         }

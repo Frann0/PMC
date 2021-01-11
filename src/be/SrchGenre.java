@@ -8,11 +8,11 @@ public class SrchGenre implements ISrch {
 
     @Override
     public boolean compareMovie(Movie movie, Srch search) {
-        List<String> allGenres = movie.getGenres();
+        List<String> genres = movie.getGenres();
         List<String> genreTokens = search.getGenreTokens();
 
         for (String genreToken : genreTokens) {
-            for (String allGenre : allGenres) {
+            for (String allGenre : genres) {
                 if (genreToken.equalsIgnoreCase(allGenre)) {
                     return true;
                 }
@@ -20,15 +20,4 @@ public class SrchGenre implements ISrch {
         }
         return false;
     }
-
-    private boolean genreMatch(Movie movie, String query){
-
-        for (int i = 0; i<movie.getGenres().size(); i++){
-            if(movie.getGenres().get(i).equalsIgnoreCase(query)){
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

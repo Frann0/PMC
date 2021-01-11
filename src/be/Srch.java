@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Srch {
     private int rating = -1;
-    List<String> filterStrings;
     List<String> allGenres;
+    List<String> filterTokens;
     List<String> genreTokens;
 
     public Srch(String query, List<String> genres) {
         genreTokens = new ArrayList<>();
-        filterStrings = new ArrayList<>();
+        filterTokens = new ArrayList<>();
         allGenres = genres;
         String[] tmpArr = query.split(" ");
 
@@ -19,13 +19,11 @@ public class Srch {
             try {
                 rating = Integer.parseInt(tmpArr[i]);
             } catch (Exception ex) {
-                if (tmpArr[i] != null) {
                     if (isItAGenre(tmpArr[i])) {
                         genreTokens.add(tmpArr[i]);
                     } else {
-                        filterStrings.add(tmpArr[i]);
+                        filterTokens.add(tmpArr[i]);
                     }
-                }
             }
         }
     }
@@ -43,8 +41,8 @@ public class Srch {
         return rating;
     }
 
-    public List<String> getFilterStrings() {
-        return filterStrings;
+    public List<String> getFilterTokens() {
+        return filterTokens;
     }
 
     public List<String> getGenreTokens() {

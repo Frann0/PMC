@@ -1,6 +1,7 @@
 package bll;
 
 import be.Movie;
+import dal.ErrorHandler;
 import dal.movieDAL;
 
 import java.io.IOException;

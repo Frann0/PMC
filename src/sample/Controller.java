@@ -282,6 +282,11 @@ public class Controller implements Initializable {
         titleHbox.setPrefWidth(1135);
 
 
+        if (selectedMovie.getArtwork() != null){
+            imgAddPoster.setImage(selectedMovie.getArtwork());
+        } else {
+            imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
+        }
         movieTitleField.setText(selectedMovie.getTitle());
         if ((selectedMovie.getPersonalRating() == 0)) {
             personalRatingField.getSelectionModel().select(0);

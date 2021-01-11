@@ -61,14 +61,6 @@
     -fx-text-background-color: white;
 }
 
-.titleColumnHeader{
-    -fx-background-radius: 10 0 0 0;
-}
-
-.lastViewedColoumnHeader{
-    -fx-background-radius: 0 10 0 0;
-}
-
 .table-view .column-header .label{
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 2 0 2 10px;
@@ -154,4 +146,8 @@
 
 .play:hover{
     -fx-fill: White;
+}
+
+.JFXTextArea{
+    -fx-text-fill: #b3bcc8;
 }

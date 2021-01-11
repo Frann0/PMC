@@ -180,4 +180,11 @@ public class movieDAL {
     }
 
 
+    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
+            // Update LastViewed
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET LastViewed= '" + now + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
+        }
+    }
 }

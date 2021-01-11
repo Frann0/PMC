@@ -5,6 +5,7 @@ import dal.movieDAL;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class movieManager {
@@ -57,5 +58,9 @@ public class movieManager {
 
     public void updateArtPath(String movieTitle, String path) throws SQLException {
         myMovieDAL.updateArtPath(movieTitle, path);
+    }
+
+    public void updateLastViewed(String title, LocalDate now) throws SQLException {
+        myMovieDAL.updateLastViewed(title, now);
     }
 }

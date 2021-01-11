@@ -171,7 +171,6 @@ public class movieModel {
                 && !search.getGenreTokens().isEmpty()){
             searchType = 7;
         }
-        System.out.println(searchType);
         return searchType;
     }
 

@@ -17,7 +17,7 @@ public ErrorHandler() throws IOException {
     dbCon = new dbConnector();
 }
 
-
+    // skal testet
     public static boolean testConnection() {
         try (Connection con = dbCon.getConnection()) {
             return true;

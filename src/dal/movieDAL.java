@@ -20,7 +20,10 @@ public class movieDAL {
     public movieDAL() throws IOException {
     }
 
-
+    /**
+     * This method create a new List and take all Movies from Database and but into this list.
+     * @return
+     */
     public List<Movie> getAllMovies(){
         List<Movie> allMovies = new ArrayList<>();
 
@@ -91,7 +94,12 @@ public class movieDAL {
         return allMovies;
     }
 
-
+    /**
+     * This method create a movine in the Database under Movie.
+     * @param movieTitle this set the movieTitle.
+     * @param imdbRating this set the movies imdbration.
+     * @param filePath this set the file location on you pc to the movie.
+     */
     public void addMovie(String movieTitle, int imdbRating, String filePath){
         try (Connection con = dbCon.getConnection()) {
 
@@ -108,6 +116,10 @@ public class movieDAL {
         }
     }
 
+    /**
+     *  This method  first delete the Associations from the movie then delete the Movie from the Database Movie.
+     * @param title this is the input you use the delete the Movie from.
+     */
     public void deleteMovie(String title) {
         try (Connection con = dbCon.getConnection()) {
             deleteAssociations(title);
@@ -120,6 +132,13 @@ public class movieDAL {
         }
     }
 
+    /**
+     * This method add associations from movies and and Genre and puts them into GenreMovie in the Database.
+     *  if the genreList is == 1 it just add 1 movie with 1 genre.
+     *  if the genreList is > 1 it make a loop where it add the movie with each genre.
+     * @param movieTitle the movie you want to add to GenreMovie
+     * @param genreList the list of Genre you want to a movie in GenreMovie
+     */
     public void addAssociations(String movieTitle, List<String> genreList){
         try (Connection con = dbCon.getConnection()) {
 
@@ -148,7 +167,11 @@ public class movieDAL {
         }
     }
 
-
+    /**
+     * This method delete all the Associations from a movie in the GenreMovie.
+     * so a movie will not be in the GenreMovie.
+     * @param title the name of the movie you want to delete from GenreMovie.
+     */
     public void deleteAssociations(String title) {
         try (Connection con = dbCon.getConnection()) {
 
@@ -160,6 +183,12 @@ public class movieDAL {
         }
     }
 
+    /**
+     * This method Update the Personal Rating and Update it's associations.
+     * @param movieTitle the title of the movie you update.
+     * @param newGenres the name of the new title you want to update.
+     * @param newPersonalRating the ration you update to the movie.
+     */
     public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating){
 
         try (Connection con = dbCon.getConnection()) {
@@ -175,7 +204,11 @@ public class movieDAL {
         }
     }
 
-
+    /**
+     * This method update the LastViewed from a movie.
+     * @param movieTitle the title of the movie you update the Lastviewed.
+     * @param now the date from "Now" you update the movie Lastviewed too.
+     */
     public void updateLastViewed(String movieTitle, LocalDate now) {
         try (Connection con = dbCon.getConnection()) {
             // Update LastViewed

@@ -18,7 +18,10 @@ public class genreDAL {
         dbCon = new dbConnector();
     }
 
-
+    /**
+     * This method create a new Genre and adds it to the Database as long the Genre doesn't exists
+     * @param genre this is the name of the Genre you wanna create.
+     */
     public void addGenre(String genre) {
         try (Connection con = dbCon.getConnection()) {
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
@@ -29,6 +32,11 @@ public class genreDAL {
         }
     }
 
+    /**
+     * This Method Delete from GenreMovie by Genre. so all movies that have the Genre will be removed
+     * from GenreMovie.
+     * @param genre this is the Genre you want to delete from GenreMovie
+     */
     public void deleteAssociationByGenre(String genre){
         try (Connection con = dbCon.getConnection()) {
 
@@ -40,6 +48,10 @@ public class genreDAL {
         }
     }
 
+    /**
+     * This method delete a Genre from the Datebase as long as Genre you try to delete exists.
+     * @param genre the name of the genre you try to delete.
+     */
     public void deleteGenre(String genre){
         deleteAssociationByGenre(genre);
         try(Connection con = dbCon.getConnection()) {
@@ -51,6 +63,10 @@ public class genreDAL {
         }
     }
 
+    /**
+     * This method create a ArrayList and take Genre From the Database and put into this list.
+     * @return it returns the List you made. AKA Shows all Genre in Database.
+     */
     public List<String> getAllGenres() {
         List<String> allGenres = new ArrayList<>();
         try (Connection con = dbCon.getConnection()) {

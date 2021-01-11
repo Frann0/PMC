@@ -27,7 +27,10 @@ public ErrorHandler() throws IOException {
 
     }
 
-
+    /**
+     * Method is to handle exception where we cant get connection to the
+     * Server. it gives us a Dialog with infomation and possible fixes.
+     */
     public static void connectionErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -37,6 +40,10 @@ public ErrorHandler() throws IOException {
         alert.showAndWait();
     }
 
+    /**
+     * Method is to handle exception where we cant add a new Genre
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void addGenreErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -45,7 +52,10 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
-
+    /**
+     * Method is to handle exception where we cant delete a assciation from a Genre.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void deleteAssociationByGenreErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -54,7 +64,10 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
-
+    /**
+     * Method is to handle exception where we cant delete a Genre.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void deleteGenreErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -63,15 +76,35 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
-
+    /**
+     * Method is to handle exception where we cant get the list of all Genres.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void getAllGenresErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Couldn't find the list with genre");
-        alert.setContentText("Something went Wrong contact Jonas");
+        alert.setContentText("Something went Wrong. \n\rcheck you connection and restart");
 
         alert.showAndWait();
     }
+    /**
+     * Method is to handle exception where we cant get the list of all Movies.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
+    public static void getAllMovieErr() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Couldn't find the list with movie");
+        alert.setContentText("Something went Wrong. \n\rcheck you connection and restart");
+
+        alert.showAndWait();
+    }
+
+    /**
+     * Method is to handle exception where we cant add a new Movie.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void addMovieErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -80,6 +113,11 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
+
+    /**
+     * Method is to handle exception where we cant delete a movie.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void deleteMovieErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -88,6 +126,11 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
+
+    /**
+     * Method is to handle exception where we cant add an new assciation
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void addAssociationsErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -96,6 +139,11 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
+
+    /**
+     * Method is to handle exception where we cant delete an assciation
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void deleteAssociationsErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
@@ -104,10 +152,28 @@ public ErrorHandler() throws IOException {
 
         alert.showAndWait();
     }
+
+    /**
+     * Method is to handle exception where we cant UpdateMovie.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
     public static void updateMovieErr() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Couldn't update infomation");
+        alert.setContentText("Check that your input");
+
+        alert.showAndWait();
+    }
+
+    /**
+     * Method is to handle exception where we cant UpdateLastViewed.
+     * it gives us a Dialog with infomation and possible fixes.
+     */
+    public static void updateLastViewedErr() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Couldn't update LastViewed");
         alert.setContentText("Check that your input");
 
         alert.showAndWait();

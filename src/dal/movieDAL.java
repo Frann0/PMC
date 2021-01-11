@@ -21,7 +21,6 @@ public class movieDAL {
     }
 
 
-
     public List<Movie> getAllMovies() throws SQLException {
         List<Movie> allMovies = new ArrayList<>();
 
@@ -33,17 +32,17 @@ public class movieDAL {
             ResultSet resultSet = pSql.getResultSet();
 
             // Add movies to allMovies
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 String movieTitle = resultSet.getString("Title");
                 int imdbRating = resultSet.getInt("ImdbRating");
                 String filePath = resultSet.getString("Filepath");
                 int personalRating = 0;
                 LocalDate lastViewed = null;
 
-                if(resultSet.getString("PersonalRating") != null){
+                if (resultSet.getString("PersonalRating") != null) {
                     personalRating = resultSet.getInt("PersonalRating");
                 }
-                if (resultSet.getDate("LastViewed") != null){
+                if (resultSet.getDate("LastViewed") != null) {
                     lastViewed = resultSet.getDate("LastViewed").toLocalDate();
                 }
 
@@ -63,8 +62,8 @@ public class movieDAL {
             int movieCounter = 0;
             List<String> movieTitles = new ArrayList<>();
             String tempMovieTitle = "";
-            while(resultSet2.next()){
-                if(!resultSet2.getString("MovieTitle").equals(tempMovieTitle)){
+            while (resultSet2.next()) {
+                if (!resultSet2.getString("MovieTitle").equals(tempMovieTitle)) {
                     movieCounter++;
                     movieTitles.add(resultSet2.getString("MovieTitle"));
                     tempMovieTitle = resultSet2.getString("MovieTitle");
@@ -72,16 +71,16 @@ public class movieDAL {
             }
 
             // Add associated genres to movies
-            for(int i = 0; i < movieTitles.size(); i++){
+            for (int i = 0; i < movieTitles.size(); i++) {
                 List<String> genres = new ArrayList<>();
                 resultSet2.beforeFirst();
-                while(resultSet2.next()){
-                    if(resultSet2.getString("MovieTitle").equals(movieTitles.get(i))){
+                while (resultSet2.next()) {
+                    if (resultSet2.getString("MovieTitle").equals(movieTitles.get(i))) {
                         genres.add(resultSet2.getString("GenreName"));
                     }
                 }
-                for(Movie mov : allMovies){
-                    if(mov.getTitle().equals(movieTitles.get(i))){
+                for (Movie mov : allMovies) {
+                    if (mov.getTitle().equals(movieTitles.get(i))) {
                         mov.setGenres(genres);
                     }
                 }
@@ -107,34 +106,34 @@ public class movieDAL {
 
     // TODO
     public void deleteMovie(String title) throws SQLException {
-        try(Connection con = dbCon.getConnection()) {
+        try (Connection con = dbCon.getConnection()) {
             deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
-            pSql2.setString(1,title);
+            pSql2.setString(1, title);
             pSql2.execute();
         }
     }
 
     //TODO
-    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
-        try(Connection con = dbCon.getConnection()) {
+    public void addAssociations(String movieTitle, List<String> genreList) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
 
-            if (genreList.size()==1) {
+            if (genreList.size() == 1) {
                 String genre = "";
                 genre = genreList.get(0);
                 PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
-                pSql.setString(1,movieTitle);
-                pSql.setString(2,genre);
+                pSql.setString(1, movieTitle);
+                pSql.setString(2, genre);
                 pSql.execute();
-            }
-            else {
+            } else {
                 PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
-                for(int i = 0; i < genreList.size();i++) {
+                for (int i = 0; i < genreList.size(); i++) {
 
-                    String genre= genreList.get(i);
-                    pSql.setString(1,movieTitle);
-                    pSql.setString(2,genre);;
+                    String genre = genreList.get(i);
+                    pSql.setString(1, movieTitle);
+                    pSql.setString(2, genre);
+                    ;
                     pSql.addBatch();
                 }
                 pSql.executeBatch();
@@ -166,5 +165,13 @@ public class movieDAL {
         }
     }
 
+
+    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
+            // Update LastViewed
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET LastViewed= '" + now + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
+        }
+    }
 
 }

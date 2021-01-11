@@ -21,9 +21,6 @@ public class NotificationViewController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 

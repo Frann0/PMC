@@ -39,6 +39,7 @@ public class movieDAL {
                 String filePath = resultSet.getString("Filepath");
                 int personalRating = 0;
                 LocalDate lastViewed = null;
+                String artPath = "/Resources/ShawshankRedemptionMoviePoster.jpg";
 
                 if(resultSet.getString("PersonalRating") != null){
                     personalRating = resultSet.getInt("PersonalRating");
@@ -46,8 +47,11 @@ public class movieDAL {
                 if (resultSet.getDate("LastViewed") != null){
                     lastViewed = resultSet.getDate("LastViewed").toLocalDate();
                 }
+                if (resultSet.getString("artPath") != null){
+                    artPath = resultSet.getString("artPath");
+                }
 
-                Movie tempMovie = new Movie(movieTitle, imdbRating, filePath, personalRating, lastViewed);
+                Movie tempMovie = new Movie(movieTitle, imdbRating, filePath, personalRating, lastViewed, artPath);
                 allMovies.add(tempMovie);
             }
 
@@ -151,6 +155,15 @@ public class movieDAL {
             pSql.setString(1, title);
             pSql.execute();
         }
+    }
+
+    public void updateArtPath(String movieTitle, String artpath) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
+            // Update personalRating
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET ArtPath= '" + artpath + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
+        }
+
     }
 
     public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {

@@ -54,4 +54,8 @@ public class movieManager {
     public void deleteMovie(String title) throws SQLException {
         myMovieDAL.deleteMovie(title);
     }
+
+    public void updateArtPath(String movieTitle, String path) throws SQLException {
+        myMovieDAL.updateArtPath(movieTitle, path);
+    }
 }

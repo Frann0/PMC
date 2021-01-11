@@ -178,7 +178,7 @@ public class Controller implements Initializable {
             Movie currentMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
             paneMovieTitle.setVisible(true);
             lblBigMovieTitle.setText(currentMovie.getTitle());
-            imgPoster.setImage(currentMovie.getArtwork());
+            imgPoster.setImage(currentMovie.getArt());
             lblMovieTitle.setText(currentMovie.getTitle());
             lblIMDBRating.setText(String.valueOf(currentMovie.getRating()));
             lblMovieRating.setText(String.valueOf(currentMovie.getPersonalRating()));
@@ -245,7 +245,7 @@ public class Controller implements Initializable {
 
     }
 
-    public void HandleAddMoviePoster(MouseEvent mouseEvent) {
+    public void HandleAddMoviePoster(MouseEvent mouseEvent) throws SQLException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a movie poster for the movie");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (.jpg, .png, jpeg)", "*.jpg", "*.png", "*.jpeg");
@@ -255,7 +255,7 @@ public class Controller implements Initializable {
             Image poster = new Image(selectedFile.toURI().toString());
             imgAddPoster.setImage(poster);
         }
-
+        myMovieModel.updateArtPath(tblMoviesInGenre.getSelectionModel().getSelectedItem().getTitle(), selectedFile.getPath());
     }
 
     public void handleRemoveMovie(ActionEvent actionEvent) throws SQLException {
@@ -272,7 +272,8 @@ public class Controller implements Initializable {
         titlePane.setPrefWidth(845);
         titleHbox.setPrefWidth(1135);
 
-
+        Image poster = selectedMovie.getArt();
+        imgAddPoster.setImage(poster);
         movieTitleField.setText(selectedMovie.getTitle());
         if ((selectedMovie.getPersonalRating() == 0)){
             personalRatingField.getSelectionModel().select(0);

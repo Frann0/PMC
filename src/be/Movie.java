@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
-    private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
+    private Image art = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
     private final StringProperty title = new SimpleStringProperty("");
     private final IntegerProperty imdbRating = new SimpleIntegerProperty(0);
     private final IntegerProperty personalRating = new SimpleIntegerProperty(0);
@@ -24,22 +24,25 @@ public class Movie {
         this.imdbRating.set(imdbRating);
         this.lastViewed = null;
         this.filePath.set(filePath);
+
     }
 
-    public Movie(String title, int imdbRating, String filePath, int personalRating, LocalDate lastViewed){
+    public Movie(String title, int imdbRating, String filePath, int personalRating, LocalDate lastViewed, String artPath){
         this.title.set(title);
         this.imdbRating.set(imdbRating);
         this.lastViewed = lastViewed;
         this.filePath.set(filePath);
         this.personalRating.set(personalRating);
+        this.art = new Image(artPath);
+
     }
 
     /**
-     * Getter for the movie poster.
+     * Getter for the movie poster filepath.
      * @return filepath to the poster.
      */
-    public Image getArtwork() {
-        return artwork;
+    public Image getArt() {
+        return art;
     }
 
     /**

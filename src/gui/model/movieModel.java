@@ -251,6 +251,10 @@ public class movieModel {
         return myMovieSearcher.executeSearch(mov, search);
     }
 
+    public void updateArtPath(String movieTitle, String path) throws SQLException {
+        myMovieManager.updateArtPath(movieTitle, path);
+    }
+
     /*
     public String getBadMovies(){
         String badMovies = null;

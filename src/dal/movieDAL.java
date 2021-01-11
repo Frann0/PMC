@@ -22,7 +22,7 @@ public class movieDAL {
 
 
 
-    public List<Movie> getAllMovies() {
+    public List<Movie> getAllMovies() throws SQLException {
         List<Movie> allMovies = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection()) {
@@ -86,14 +86,12 @@ public class movieDAL {
                     }
                 }
             }
-        } catch (SQLException throwables) {
-            ErrorHandler.connectionErr();
         }
         return allMovies;
     }
 
 
-    public void addMovie(String movieTitle, int imdbRating, String filePath)  {
+    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Movie VALUES(?,?,?,?,?)");
@@ -104,26 +102,22 @@ public class movieDAL {
             pSql.setString(5, null);
             pSql.setInt(5, imdbRating);
             pSql.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.addMovieErr();
         }
     }
 
     // TODO
-    public void deleteMovie(String title)  {
+    public void deleteMovie(String title) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
             deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
             pSql2.setString(1,title);
             pSql2.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.deleteMovieErr();
         }
     }
 
     //TODO
-    public void addAssociations(String movieTitle,List<String> genreList) {
+    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
         try(Connection con = dbCon.getConnection()) {
 
             if (genreList.size()==1) {
@@ -146,27 +140,20 @@ public class movieDAL {
                 pSql.executeBatch();
 
             }
-        } catch (SQLException throwables) {
-            ErrorHandler.addAssociationsErr();
         }
     }
 
 
-    public void deleteAssociations(String title) {
+    public void deleteAssociations(String title) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
-
-        } catch (SQLException throwables) {
-            ErrorHandler.deleteAssociationsErr();
         }
     }
 
-
-    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) {
-
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
@@ -176,16 +163,6 @@ public class movieDAL {
             // Update associations
             deleteAssociations(movieTitle);
             addAssociations(movieTitle, newGenres);
-        } catch (SQLException throwables) {
-            ErrorHandler.updateMovieErr();
-        }
-    }
-
-    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
-        try (Connection con = dbCon.getConnection()) {
-            // Update LastViewed
-            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET LastViewed= '" + now + "' WHERE Title= '" + movieTitle + "'");
-            pSql.execute();
         }
     }
 

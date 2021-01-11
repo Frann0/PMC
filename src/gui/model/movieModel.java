@@ -5,7 +5,6 @@ import be.*;
 import bll.movieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,24 +21,50 @@ public class movieModel {
         allMovies.addAll(myMovieManager.getAllMovies());
     }
 
+    /**
+     * Adds a movie to the database, and updated the allMovies list.
+     * @param movieTitle Title of the movie to be added.
+     * @param imdbRating Imdb rating of the movie to be added.
+     * @param filePath Filepath of the movie to be added.
+     * @throws SQLException
+     */
     public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         myMovieManager.addMovie(movieTitle, imdbRating, filePath);
         updateAllMovies();
     }
 
+    /**
+     * Delete a movie from the database.
+     * @param title Title of the movie to be deleted.
+     * @throws SQLException
+     */
     public void deleteMovie(String title) throws SQLException {
         myMovieManager.deleteMovie(title);
     }
 
+    /**
+     * Get all movies from the database.
+     * @return a list of all movies.
+     * @throws SQLException
+     */
     public List<Movie> getAllMovies() throws SQLException {
         return myMovieManager.getAllMovies();
     }
 
+    /**
+     * Update the allMovies list.
+     * @throws SQLException
+     */
     public void updateAllMovies() throws SQLException {
         allMovies.clear();
         allMovies.addAll(myMovieManager.getAllMovies());
     }
 
+    /**
+     * Get a list of all movies within specified genre.
+     * @param genre The genre specifying movies to be selected.
+     * @return a list of movies within the specified genre.
+     */
     public ObservableList<Movie> moviesByGenre(String genre){
         ObservableList<Movie> moviesByGenre = FXCollections.observableArrayList();
         for(Movie mov : allMovies){
@@ -50,6 +75,13 @@ public class movieModel {
         return moviesByGenre;
     }
 
+    /**
+     * Updates a movie in the database.
+     * @param movieTitle Title of the movie to be updated.
+     * @param newGenres List of new genres of the movie.
+     * @param newPersonalRating New personal rating of the movie.
+     * @throws SQLException
+     */
     public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
         // Update movie info in allMovies
         for(Movie mov : allMovies){
@@ -76,7 +108,13 @@ public class movieModel {
         return oldMovies;
     }
 
-    public ObservableList<Movie> movieSearch(Srch search) throws IOException {
+    /**
+     * Generates a list of all movies that match the search.
+     * @param search Search object containing all search criteria.
+     * @return a list of all matching movies.
+     * @throws IOException
+     */
+    public ObservableList<Movie> movieSearch(Search search) throws IOException {
         ObservableList<Movie> searchedMovies = FXCollections.observableArrayList();
         int searchtype = determineSearchType(search);
 
@@ -132,60 +170,84 @@ public class movieModel {
         return searchedMovies;
     }
 
-    private int determineSearchType(Srch search){
+    /**
+     * Determines if the user is searching for title, genre, rating,
+     * or any combination of these.
+     * @param search Search object containing search criteria.
+     * @return an int indicating what type of search the user made.
+     */
+    private int determineSearchType(Search search){
         int searchType = 0;
 
         // Only search rating
-        if (search.getRating() != -1 && search.getFilterTokens().isEmpty()
+        if (search.getRating() != -1 && search.getTitleTokens().isEmpty()
         && search.getGenreTokens().isEmpty()){
             searchType = 1;
         }
         // Only search rating + genre
-        else if (search.getRating() != -1 && search.getFilterTokens().isEmpty()
+        else if (search.getRating() != -1 && search.getTitleTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 2;
         }
         // Only search rating + title
-        else if (search.getRating() != -1 && !search.getFilterTokens().isEmpty()
+        else if (search.getRating() != -1 && !search.getTitleTokens().isEmpty()
                 && search.getGenreTokens().isEmpty()){
             searchType = 3;
         }
         // Only search title + genre
-        else if (search.getRating() == -1 && !search.getFilterTokens().isEmpty()
+        else if (search.getRating() == -1 && !search.getTitleTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 4;
         }
         // Only search title
-        else if (search.getRating() == -1 && !search.getFilterTokens().isEmpty()
+        else if (search.getRating() == -1 && !search.getTitleTokens().isEmpty()
                 && search.getGenreTokens().isEmpty()){
             searchType = 5;
         }
         // Only search genre
-        else if (search.getRating() == -1 && search.getFilterTokens().isEmpty()
+        else if (search.getRating() == -1 && search.getTitleTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
 
             searchType = 6;
         }
         // Search rating + title + genre
-        else if (search.getRating() != -1 && !search.getFilterTokens().isEmpty()
+        else if (search.getRating() != -1 && !search.getTitleTokens().isEmpty()
                 && !search.getGenreTokens().isEmpty()){
             searchType = 7;
         }
         return searchType;
     }
 
-    public boolean ratingMatch(Movie mov, Srch search){
-        myMovieSearcher = new movieSearcher(new SrchRating());
+    /**
+     * Checks to see if the movie's rating is >= the rating specified in search.
+     * @param mov The movie to be compared.
+     * @param search Search object containing specified rating.
+     * @return true if there is a match, else false.
+     */
+    public boolean ratingMatch(Movie mov, Search search){
+        myMovieSearcher = new movieSearcher(new SearchRating());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
-    public boolean genreMatch(Movie mov, Srch search){
-        myMovieSearcher = new movieSearcher(new SrchGenre());
+    /**
+     * Checks to see if the movie's genre matches the genres specified in search.
+     * @param mov The movie to be compared.
+     * @param search Search object containing specified genre(s).
+     * @return true if there is a match, else false.
+     */
+    public boolean genreMatch(Movie mov, Search search){
+        myMovieSearcher = new movieSearcher(new SearchGenre());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
-    public boolean titleMatch(Movie mov, Srch search){
-        myMovieSearcher = new movieSearcher(new SrchTitle());
+    /**
+     * Checks to see if the movie's title matches the title string(s) specified in search.
+     * @param mov The movie to be compared.
+     * @param search Search object containing specified title string(s).
+     * @return true if there is a match, else false.
+     */
+    public boolean titleMatch(Movie mov, Search search){
+        myMovieSearcher = new movieSearcher(new SearchTitle());
         return myMovieSearcher.executeSearch(mov, search);
     }
 

@@ -1,9 +1,6 @@
 package dal;
 
-import be.Playlist;
 import be.dbConnector;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,41 +20,34 @@ public class genreDAL {
 
 
 
-    public void addGenre(String genre)  {
+    public void addGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
             pSql.setString(1, genre);
             pSql.execute();
-
-        } catch (SQLException throwables) {
-            ErrorHandler.addGenreErr();
         }
     }
 
-    public void deleteAssociationByGenre(String genre) {
+    public void deleteAssociationByGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE GenreName = ?");
             pSql.setString(1, genre);
             pSql.execute();
 
-        } catch (SQLException throwables) {
-           ErrorHandler.deleteAssociationByGenreErr();
         }
     }
 
-    public void deleteGenre(String genre) {
+    public void deleteGenre(String genre) throws SQLException{
         deleteAssociationByGenre(genre);
         try(Connection con = dbCon.getConnection()) {
             PreparedStatement pSql = con.prepareStatement("DELETE FROM Genre WHERE genrename = ?; ");
             pSql.setString(1,genre);
             pSql.execute();
-        } catch (SQLException throwables) {
-           ErrorHandler.deleteGenreErr();
         }
     }
 
-    public List<String> getAllGenres() {
+    public List<String> getAllGenres() throws SQLException {
         List<String> allGenres = new ArrayList<>();
         try (Connection con = dbCon.getConnection()) {
             PreparedStatement pSql = con.prepareStatement("SELECT * FROM Genre");
@@ -66,8 +56,6 @@ public class genreDAL {
             while(resultSet.next()){
                 allGenres.add(resultSet.getString("genrename"));
             }
-        } catch (SQLException throwables) {
-            ErrorHandler.getAllGenresErr();
         }
         return allGenres;
     }

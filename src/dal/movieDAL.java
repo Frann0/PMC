@@ -35,13 +35,13 @@ public class movieDAL {
             // Add movies to allMovies
             while(resultSet.next()){
                 String movieTitle = resultSet.getString("Title");
-                String imdbRating = resultSet.getString("ImdbRating");
+                int imdbRating = resultSet.getInt("ImdbRating");
                 String filePath = resultSet.getString("Filepath");
-                String personalRating = "";
+                int personalRating = 0;
                 LocalDate lastViewed = null;
 
                 if(resultSet.getString("PersonalRating") != null){
-                    personalRating = resultSet.getString("PersonalRating");
+                    personalRating = resultSet.getInt("PersonalRating");
                 }
                 if (resultSet.getDate("LastViewed") != null){
                     lastViewed = resultSet.getDate("LastViewed").toLocalDate();
@@ -91,15 +91,16 @@ public class movieDAL {
     }
 
 
-    public void addMovie(String movieTitle, String imdbRating, String filePath) throws SQLException {
+    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Movie VALUES(?,?,?,?,?)");
             pSql.setString(1, movieTitle);
-            pSql.setString(2, null);
-            pSql.setString(3, imdbRating);
+            pSql.setInt(2, 0);
+            pSql.setDate(3, null);
             pSql.setString(4, null);
-            pSql.setString(5, filePath);
+            pSql.setString(5, null);
+            pSql.setInt(5, imdbRating);
             pSql.execute();
         }
     }
@@ -154,7 +155,7 @@ public class movieDAL {
     }
 
     // TODO
-    public void updateMovie(String movieTitle, List<String> newGenres, String newPersonalRating) throws SQLException {
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
 
 
         try (Connection con = dbCon.getConnection()) {

@@ -15,21 +15,21 @@ import java.util.List;
 public class Movie {
     //private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
     private final StringProperty title = new SimpleStringProperty("");
-    private final StringProperty imdbRating = new SimpleStringProperty("");
-    private final StringProperty personalRating = new SimpleStringProperty("");
+    private final IntegerProperty imdbRating = new SimpleIntegerProperty(0);
+    private final IntegerProperty personalRating = new SimpleIntegerProperty(0);
     //private final String maxRating = "10";
     private List<String> genres = new ArrayList<>();
     private LocalDate lastViewed;
     private final StringProperty filePath = new SimpleStringProperty("");
 
-    public Movie(String title, String imdbRating, String filePath){
+    public Movie(String title, int imdbRating, String filePath){
         this.title.set(title);
         this.imdbRating.set(imdbRating);
         this.lastViewed = null;
         this.filePath.set(filePath);
     }
 
-    public Movie(String title, String imdbRating, String filePath, String personalRating, LocalDate lastViewed){
+    public Movie(String title, int imdbRating, String filePath, int personalRating, LocalDate lastViewed){
         this.title.set(title);
         this.imdbRating.set(imdbRating);
         this.lastViewed = lastViewed;
@@ -45,7 +45,7 @@ public class Movie {
         return filePath.get();
     }
 
-    public String getPersonalRating() {
+    public int getPersonalRating() {
         return personalRating.get();
     }
 
@@ -53,7 +53,7 @@ public class Movie {
         return title.get();
     }
 
-    public String getRating() {
+    public int getRating() {
         return imdbRating.get() /* + " / " + maxRating*/;
     }
 
@@ -75,5 +75,5 @@ public class Movie {
         return movieString.toLowerCase();
     }
 
-    public void setPersonalRating(String personalRating){this.personalRating.set(personalRating);}
+    public void setPersonalRating(int personalRating){this.personalRating.set(personalRating);}
 }

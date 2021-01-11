@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Searcher {
+    /*
     public ObservableList<Movie> search(ObservableList<Movie> startList, String query){
         ObservableList<Movie> results = FXCollections.observableArrayList();
         results.addAll(startList);
@@ -15,4 +16,6 @@ public class Searcher {
 
         return results;
     }
+
+     */
 }

@@ -1,6 +1,7 @@
 package sample;
 
 import be.Movie;
+import be.Srch;
 import bll.Searcher;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -83,7 +85,7 @@ public class Controller implements Initializable {
     @FXML
     private Label movieTitleField;
     @FXML
-    private JFXTextField personalRatingField;
+    private ChoiceBox personalRatingField;
     @FXML
     private JFXTextField genreField;
     @FXML
@@ -106,6 +108,16 @@ public class Controller implements Initializable {
         }
         TitleBar.setPrefWidth(465);
         titlePane.setPrefWidth(150);
+
+        // Initialize personalRating, and searchByRating choice box
+        for(int i = 0; i<=10; i++){
+            if(i == 0){
+                personalRatingField.getItems().add("Not Rated");
+            } else{
+                personalRatingField.getItems().add(i);
+            }
+        }
+
 
 
         tblClmTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -173,8 +185,8 @@ public class Controller implements Initializable {
             lblBigMovieTitle.setText(currentMovie.getTitle());
             imgPoster.setImage(currentMovie.getArtwork());
             lblMovieTitle.setText(currentMovie.getTitle());
-            lblIMDBRating.setText(currentMovie.getRating());
-            lblMovieRating.setText(currentMovie.getPersonalRating());
+            lblIMDBRating.setText(String.valueOf(currentMovie.getRating()));
+            lblMovieRating.setText(String.valueOf(currentMovie.getPersonalRating()));
             lblMovieLastView.setText(currentMovie.getLastViewed().toString());
         }
     }
@@ -188,10 +200,22 @@ public class Controller implements Initializable {
         stage.setIconified(true);
     }
 
-    public void handleSearch(KeyEvent keyEvent) {
-        Searcher searcher = new Searcher();
+    public void handleSearch(KeyEvent keyEvent) throws SQLException, IOException {
+        Srch search = new Srch(Search.getText(), myGenreModel.getAllGenres());
 
-        //tblMoviesInGenre.setItems(searcher.search(movies, Search.getText()));
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), paneMovies);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(100);
+        if (!paneMovies.isVisible()){
+            fadeTransition.play();
+        }
+        paneMovies.setVisible(true);
+        lblMoviesInGenre.setText(Search.getText());
+
+
+
+
+        tblMoviesInGenre.setItems(myMovieModel.movieSearch(search));
 
     }
 
@@ -206,7 +230,7 @@ public class Controller implements Initializable {
         String filePath = selectedFile.getPath();
         String[] movieInfoTemp = filePath.split("\\\\");
         String[] movieInfo = movieInfoTemp[movieInfoTemp.length-1].split("-");
-        String imdbRating = movieInfo[0].trim();
+        int imdbRating = Integer.parseInt(movieInfo[0]);
         String[] movieTitleTemp = movieInfo[1].split("\\.");
         String movieTitle = movieTitleTemp[0].trim();
 
@@ -216,7 +240,7 @@ public class Controller implements Initializable {
         // TODO Update fields in editWindow
 
         movieTitleField.setText(movieTitle);
-        lblIMDBRating1.setText(imdbRating);
+        lblIMDBRating1.setText(String.valueOf(imdbRating));
 
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
@@ -253,11 +277,14 @@ public class Controller implements Initializable {
         titlePane.setPrefWidth(845);
         titleHbox.setPrefWidth(1135);
 
+
         movieTitleField.setText(selectedMovie.getTitle());
-        if (!selectedMovie.getPersonalRating().isEmpty()){
-            personalRatingField.setText(selectedMovie.getPersonalRating());
+        if ((selectedMovie.getPersonalRating() == 0)){
+            personalRatingField.getSelectionModel().select(0);
+        } else{
+            personalRatingField.getSelectionModel().select(selectedMovie.getPersonalRating());
         }
-        lblIMDBRating1.setText(selectedMovie.getRating());
+        lblIMDBRating1.setText(String.valueOf(selectedMovie.getRating()));
         if (!selectedMovie.getGenres().isEmpty()){
             //sets the genres without '[' and ']' at the start and end
             genreField.setText(selectedMovie.getGenres().toString().substring(1,selectedMovie.getGenres().toString().length()-1));
@@ -308,10 +335,16 @@ public class Controller implements Initializable {
         }
 
         String movieTitle = movieTitleField.getText();
-        String rating = personalRatingField.getText();
+        int rating = -1;
+        if(personalRatingField.getSelectionModel().getSelectedItem().equals("Not Rated")){
+            rating = 0;
+        } else{
+            rating = personalRatingField.getSelectionModel().getSelectedIndex();
+        }
+
         myMovieModel.updateMovie(movieTitle, newGenres, rating);
         updateMoviesByGenreView();
-        lblMovieRating.setText(rating);
+        lblMovieRating.setText(String.valueOf(rating));
 
         paneEditMovie.setVisible(false);
         TitleBar.setLayoutX(335);
@@ -330,7 +363,6 @@ public class Controller implements Initializable {
         //Resets all the fields back to default
         imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
         movieTitleField.setText("");
-        personalRatingField.setText("");
         lblIMDBRating1.setText("");
         genreField.setText("");
     }
@@ -360,4 +392,5 @@ public class Controller implements Initializable {
 
 
     }
+
 }

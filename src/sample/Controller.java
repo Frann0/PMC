@@ -135,11 +135,7 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
-        try {
-            lstGenre.setItems(myGenreModel.getAllGenres());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        lstGenre.setItems(myGenreModel.getAllGenres());
 
         /*
         try {

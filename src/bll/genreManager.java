@@ -18,7 +18,7 @@ public class genreManager {
      * @param genre the genre to be added.
      * @throws SQLException
      */
-    public void addGenre(String genre) throws SQLException {
+    public void addGenre(String genre){
         myGenreDAL.addGenre(genre);
     }
 
@@ -27,7 +27,7 @@ public class genreManager {
      * @return a List<String> of all genres.
      * @throws SQLException
      */
-    public List<String> getAllGenres() throws SQLException {
+    public List<String> getAllGenres(){
         return myGenreDAL.getAllGenres();
     }
 
@@ -36,7 +36,7 @@ public class genreManager {
      * @param genre the genre to be deleted.
      * @throws SQLException
      */
-    public void deleteGenre(String genre) throws SQLException {
+    public void deleteGenre(String genre){
         myGenreDAL.deleteGenre(genre);
     }
 }

@@ -47,7 +47,7 @@ public class genreModel {
      * @return List of all genres.
      * @throws SQLException
      */
-    public ObservableList<String> getAllGenres() throws SQLException {
+    public ObservableList<String> getAllGenres(){
         return allGenres;
     }
 
@@ -63,10 +63,7 @@ public class genreModel {
      */
     public void deleteGenre(String genre){
         allGenres.remove(genre);
-        try {
-            myGenreManager.deleteGenre(genre);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        myGenreManager.deleteGenre(genre);
+
     }
 }

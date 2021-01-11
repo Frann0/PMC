@@ -6,30 +6,27 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Movie {
     private Image artwork = new Image("/Resources/ShawshankRedemptionMoviePoster.jpg");
     private final StringProperty title = new SimpleStringProperty("");
-    private final StringProperty imdbRating = new SimpleStringProperty("");
-    private final StringProperty personalRating = new SimpleStringProperty("");
-    private final String maxRating = "10";
+    private final IntegerProperty imdbRating = new SimpleIntegerProperty(0);
+    private final IntegerProperty personalRating = new SimpleIntegerProperty(0);
     private List<String> genres = new ArrayList<>();
     private LocalDate lastViewed;
     private final StringProperty filePath = new SimpleStringProperty("");
 
-    public Movie(String title, String imdbRating, String filePath){
+    public Movie(String title, int imdbRating, String filePath){
         this.title.set(title);
         this.imdbRating.set(imdbRating);
         this.lastViewed = null;
         this.filePath.set(filePath);
     }
 
-    public Movie(String title, String imdbRating, String filePath, String personalRating, LocalDate lastViewed){
+    public Movie(String title, int imdbRating, String filePath, int personalRating, LocalDate lastViewed){
         this.title.set(title);
         this.imdbRating.set(imdbRating);
         this.lastViewed = lastViewed;
@@ -37,25 +34,75 @@ public class Movie {
         this.personalRating.set(personalRating);
     }
 
+    /**
+     * Getter for the movie poster.
+     * @return filepath to the poster.
+     */
     public Image getArtwork() {
-        return null;
+        return artwork;
     }
 
+    /**
+     * Getter for the movie's filepath.
+     * @return filepath of the movie.
+     */
+    public String getFilePath() {
+        return filePath.get();
+    }
+
+    /**
+     * Getter for the movie's personal rating.
+     * @return personal rating of the movie.
+     */
+    public int getPersonalRating() {
+        return personalRating.get();
+    }
+
+    /**
+     * Getter for the movie title.
+     * @return title of the movie.
+     */
     public String getTitle() {
         return title.get();
     }
 
-    public String getRating() {
-        return imdbRating.get() + " / " + maxRating;
+    /**
+     * Getter for the movie's imdbRating.
+     * @return imdb rating of the movie.
+     */
+    public int getRating() {
+        return imdbRating.get();
     }
 
+    /**
+     * Getter for the last viewed date of the movie.
+     * @return LocalDate with date for last view.
+     */
     public LocalDate getLastViewed() {
-        return LocalDate.now();
+        return lastViewed;
     }
 
+    /**
+     * Getter for the movie's genre.
+     * @return a List<String> with the movie's genres.
+     */
     public List<String> getGenres() {
         return genres;
     }
 
+    /**
+     * Setter for the movie's genres.
+     * @param genres a list of genres.
+     */
     public void setGenres(List<String> genres){this.genres = genres;}
+
+    /**
+     * Setter for the movie's personal rating.
+     * @param personalRating the movie's personal rating.
+     */
+    public void setPersonalRating(int personalRating){this.personalRating.set(personalRating);}
+
+    public void setLastViewed(LocalDate lastViewed) {
+        this.lastViewed = lastViewed;
+    }
 }

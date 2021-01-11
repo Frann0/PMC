@@ -1,11 +1,6 @@
 package bll;
 
-
-import be.Playlist;
 import dal.genreDAL;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,16 +13,30 @@ public class genreManager {
         myGenreDAL = new genreDAL();
     }
 
+    /**
+     * Add a genre to the database.
+     * @param genre the genre to be added.
+     * @throws SQLException
+     */
+    public void addGenre(String genre) throws SQLException {
+        myGenreDAL.addGenre(genre);
+    }
+
+    /**
+     * Getter for all genres in the database.
+     * @return a List<String> of all genres.
+     * @throws SQLException
+     */
     public List<String> getAllGenres() throws SQLException {
         return myGenreDAL.getAllGenres();
     }
 
-    // TODO getAllPlaylists()
-    // TODO addGenre()
-    // TODO deleteGenre()
-    // TODO addAssociation()
-    // TODO deleteAssociation()
-    // TODO updateAllGenres()
-    // TODO updateAllPlaylists()
-
+    /**
+     * Delete a genre from the database.
+     * @param genre the genre to be deleted.
+     * @throws SQLException
+     */
+    public void deleteGenre(String genre) throws SQLException {
+        myGenreDAL.deleteGenre(genre);
+    }
 }

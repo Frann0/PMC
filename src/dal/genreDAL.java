@@ -1,10 +1,7 @@
 package dal;
 
-import be.Playlist;
 import be.dbConnector;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import java.beans.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,51 +19,44 @@ public class genreDAL {
 
 
 
-    // TODO
+
     public void addGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
-
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Genre VALUES(?)");
             pSql.setString(1, genre);
             pSql.execute();
         }
     }
 
-    // TODO
-    public void deleteGenre(String genre) throws SQLException {
+    public void deleteAssociationByGenre(String genre) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
-            PreparedStatement pSql = con.prepareStatement("DELETE FROM Genre WHERE genrename = ?");
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE GenreName = ?");
+            pSql.setString(1, genre);
+            pSql.execute();
+
+        }
+    }
+
+    public void deleteGenre(String genre) throws SQLException{
+        deleteAssociationByGenre(genre);
+        try(Connection con = dbCon.getConnection()) {
+            PreparedStatement pSql = con.prepareStatement("DELETE FROM Genre WHERE genrename = ?; ");
             pSql.setString(1,genre);
             pSql.execute();
         }
     }
 
-    // TODO
     public List<String> getAllGenres() throws SQLException {
+        List<String> allGenres = new ArrayList<>();
         try (Connection con = dbCon.getConnection()) {
-
-            ArrayList<String> allgenre = new ArrayList<>();
-            String sql = "SELECT * FROM Genre;";
-
-            PreparedStatement pSql = con.prepareStatement(sql);
-            try(ResultSet rs = pSql.executeQuery("SELECT genrename FROM Genre;")) {
-                while (rs.next()) {
-                    allgenre.add(rs.getString("genrename"));
-                }
-                return allgenre;
+            PreparedStatement pSql = con.prepareStatement("SELECT * FROM Genre");
+            pSql.execute();
+            ResultSet resultSet = pSql.getResultSet();
+            while(resultSet.next()){
+                allGenres.add(resultSet.getString("genrename"));
             }
-
-
         }
-
+        return allGenres;
     }
-
-    // TODO
-    public List<Playlist> getPlaylist(){
-        return null;
-    }
-
-    // TODO
-    // TODO
 }

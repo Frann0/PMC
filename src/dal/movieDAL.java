@@ -20,11 +20,9 @@ public class movieDAL {
     public movieDAL() throws IOException {
     }
 
-    /**
-     * This method create a new List and take all Movies from Database and but into this list.
-     * @return
-     */
-    public List<Movie> getAllMovies(){
+
+
+    public List<Movie> getAllMovies() throws SQLException {
         List<Movie> allMovies = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection()) {
@@ -35,21 +33,25 @@ public class movieDAL {
             ResultSet resultSet = pSql.getResultSet();
 
             // Add movies to allMovies
-            while (resultSet.next()) {
+            while(resultSet.next()){
                 String movieTitle = resultSet.getString("Title");
                 int imdbRating = resultSet.getInt("ImdbRating");
                 String filePath = resultSet.getString("Filepath");
                 int personalRating = 0;
                 LocalDate lastViewed = null;
+                String artPath = "/Resources/ShawshankRedemptionMoviePoster.jpg";
 
-                if (resultSet.getString("PersonalRating") != null) {
+                if(resultSet.getString("PersonalRating") != null){
                     personalRating = resultSet.getInt("PersonalRating");
                 }
-                if (resultSet.getDate("LastViewed") != null) {
+                if (resultSet.getDate("LastViewed") != null){
                     lastViewed = resultSet.getDate("LastViewed").toLocalDate();
                 }
+                if (resultSet.getString("artPath") != null){
+                    artPath = resultSet.getString("artPath");
+                }
 
-                Movie tempMovie = new Movie(movieTitle, imdbRating, filePath, personalRating, lastViewed);
+                Movie tempMovie = new Movie(movieTitle, imdbRating, filePath, personalRating, lastViewed, artPath);
                 allMovies.add(tempMovie);
             }
 
@@ -65,8 +67,8 @@ public class movieDAL {
             int movieCounter = 0;
             List<String> movieTitles = new ArrayList<>();
             String tempMovieTitle = "";
-            while (resultSet2.next()) {
-                if (!resultSet2.getString("MovieTitle").equals(tempMovieTitle)) {
+            while(resultSet2.next()){
+                if(!resultSet2.getString("MovieTitle").equals(tempMovieTitle)){
                     movieCounter++;
                     movieTitles.add(resultSet2.getString("MovieTitle"));
                     tempMovieTitle = resultSet2.getString("MovieTitle");
@@ -74,33 +76,26 @@ public class movieDAL {
             }
 
             // Add associated genres to movies
-            for (int i = 0; i < movieTitles.size(); i++) {
+            for(int i = 0; i < movieTitles.size(); i++){
                 List<String> genres = new ArrayList<>();
                 resultSet2.beforeFirst();
-                while (resultSet2.next()) {
-                    if (resultSet2.getString("MovieTitle").equals(movieTitles.get(i))) {
+                while(resultSet2.next()){
+                    if(resultSet2.getString("MovieTitle").equals(movieTitles.get(i))){
                         genres.add(resultSet2.getString("GenreName"));
                     }
                 }
-                for (Movie mov : allMovies) {
-                    if (mov.getTitle().equals(movieTitles.get(i))) {
+                for(Movie mov : allMovies){
+                    if(mov.getTitle().equals(movieTitles.get(i))){
                         mov.setGenres(genres);
                     }
                 }
             }
-        } catch (SQLException throwables) {
-            ErrorHandler.getAllMovieErr();
         }
         return allMovies;
     }
 
-    /**
-     * This method create a movine in the Database under Movie.
-     * @param movieTitle this set the movieTitle.
-     * @param imdbRating this set the movies imdbration.
-     * @param filePath this set the file location on you pc to the movie.
-     */
-    public void addMovie(String movieTitle, int imdbRating, String filePath){
+
+    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Movie VALUES(?,?,?,?,?)");
@@ -111,85 +106,67 @@ public class movieDAL {
             pSql.setString(5, null);
             pSql.setInt(5, imdbRating);
             pSql.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.addMovieErr();
         }
     }
 
-    /**
-     *  This method  first delete the Associations from the movie then delete the Movie from the Database Movie.
-     * @param title this is the input you use the delete the Movie from.
-     */
-    public void deleteMovie(String title) {
-        try (Connection con = dbCon.getConnection()) {
+    // TODO
+    public void deleteMovie(String title) throws SQLException {
+        try(Connection con = dbCon.getConnection()) {
             deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
-            pSql2.setString(1, title);
+            pSql2.setString(1,title);
             pSql2.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.deleteMovieErr();
         }
     }
 
-    /**
-     * This method add associations from movies and and Genre and puts them into GenreMovie in the Database.
-     *  if the genreList is == 1 it just add 1 movie with 1 genre.
-     *  if the genreList is > 1 it make a loop where it add the movie with each genre.
-     * @param movieTitle the movie you want to add to GenreMovie
-     * @param genreList the list of Genre you want to a movie in GenreMovie
-     */
-    public void addAssociations(String movieTitle, List<String> genreList){
-        try (Connection con = dbCon.getConnection()) {
+    //TODO
+    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
+        try(Connection con = dbCon.getConnection()) {
 
-            if (genreList.size() == 1) {
+            if (genreList.size()==1) {
                 String genre = "";
                 genre = genreList.get(0);
                 PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
-                pSql.setString(1, movieTitle);
-                pSql.setString(2, genre);
+                pSql.setString(1,movieTitle);
+                pSql.setString(2,genre);
                 pSql.execute();
-            } else {
+            }
+            else {
                 PreparedStatement pSql = con.prepareStatement("INSERT INTO GenreMovie VALUES(?,?)");
-                for (int i = 0; i < genreList.size(); i++) {
+                for(int i = 0; i < genreList.size();i++) {
 
-                    String genre = genreList.get(i);
-                    pSql.setString(1, movieTitle);
-                    pSql.setString(2, genre);
-                    ;
+                    String genre= genreList.get(i);
+                    pSql.setString(1,movieTitle);
+                    pSql.setString(2,genre);;
                     pSql.addBatch();
                 }
                 pSql.executeBatch();
 
             }
-        }catch (SQLException throwables) {
-            ErrorHandler.addAssociationsErr();
         }
     }
 
-    /**
-     * This method delete all the Associations from a movie in the GenreMovie.
-     * so a movie will not be in the GenreMovie.
-     * @param title the name of the movie you want to delete from GenreMovie.
-     */
-    public void deleteAssociations(String title) {
+
+    public void deleteAssociations(String title) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.deleteAssociationsErr();
         }
     }
 
-    /**
-     * This method Update the Personal Rating and Update it's associations.
-     * @param movieTitle the title of the movie you update.
-     * @param newGenres the name of the new title you want to update.
-     * @param newPersonalRating the ration you update to the movie.
-     */
-    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating){
+    public void updateArtPath(String movieTitle, String artpath) throws SQLException {
+        try (Connection con = dbCon.getConnection()) {
+            // Update personalRating
+            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET ArtPath= '" + artpath + "' WHERE Title= '" + movieTitle + "'");
+            pSql.execute();
+        }
+
+    }
+
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
@@ -199,24 +176,8 @@ public class movieDAL {
             // Update associations
             deleteAssociations(movieTitle);
             addAssociations(movieTitle, newGenres);
-        } catch (SQLException throwables){
-            ErrorHandler.updateMovieErr();
         }
     }
 
-    /**
-     * This method update the LastViewed from a movie.
-     * @param movieTitle the title of the movie you update the Lastviewed.
-     * @param now the date from "Now" you update the movie Lastviewed too.
-     */
-    public void updateLastViewed(String movieTitle, LocalDate now) {
-        try (Connection con = dbCon.getConnection()) {
-            // Update LastViewed
-            PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET LastViewed= '" + now + "' WHERE Title= '" + movieTitle + "'");
-            pSql.execute();
-        } catch (SQLException throwables) {
-            ErrorHandler.updateLastViewedErr();
-        }
-    }
 
 }

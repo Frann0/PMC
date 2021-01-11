@@ -1,16 +1,13 @@
 package sample;
 
 import be.Movie;
-import be.Srch;
-import bll.Searcher;
+import be.Search;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import gui.controller.NotificationViewController;
 import gui.model.genreModel;
 import gui.model.movieModel;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -31,7 +27,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -206,7 +201,7 @@ public class Controller implements Initializable {
     }
 
     public void handleSearch(KeyEvent keyEvent) throws SQLException, IOException {
-        Srch search = new Srch(Search.getText(), myGenreModel.getAllGenres());
+        be.Search search = new Search(Search.getText(), myGenreModel.getAllGenres());
 
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), paneMovies);
         fadeTransition.setFromValue(0);
@@ -301,6 +296,7 @@ public class Controller implements Initializable {
 
     }
 
+
     public void handleAddGenre(ActionEvent actionEvent) {
         TextInputDialog dialog = new TextInputDialog("Genre");
         dialog.setTitle("Add genre");
@@ -317,6 +313,7 @@ public class Controller implements Initializable {
             }
         });
     }
+
 
     public void handleRemoveGenre(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

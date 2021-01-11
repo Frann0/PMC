@@ -1,15 +1,21 @@
 package be;
 
-import bll.ISrch;
+import bll.ISearch;
 
 public class movieSearcher {
-    private ISrch iSrch;
+    private ISearch iSearch;
 
-    public movieSearcher(ISrch iSrch) {
-        this.iSrch = iSrch;
+    public movieSearcher(ISearch iSearch) {
+        this.iSearch = iSearch;
     }
 
-    public boolean executeSearch(Movie movie, Srch search){
-        return iSrch.compareMovie(movie, search);
+    /**
+     * Method to execute the rating, genre and title search methods.
+     * @param movie is the movie object so be searched
+     * @param search is the search tokens
+     * @return boolean to indicate if there is a match.
+     */
+    public boolean executeSearch(Movie movie, Search search){
+        return iSearch.compareMovie(movie, search);
     }
 }

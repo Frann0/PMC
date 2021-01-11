@@ -12,6 +12,7 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -94,9 +96,12 @@ public class Controller implements Initializable {
     private Label lblIMDBRating;
     @FXML
     private Label lblIMDBRating1;
-    
+
     private movieModel myMovieModel;
     private genreModel myGenreModel;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,14 +115,13 @@ public class Controller implements Initializable {
         titlePane.setPrefWidth(150);
 
         // Initialize personalRating, and searchByRating choice box
-        for(int i = 0; i<=10; i++){
-            if(i == 0){
+        for (int i = 0; i <= 10; i++) {
+            if (i == 0) {
                 personalRatingField.getItems().add("Not Rated");
-            } else{
+            } else {
                 personalRatingField.getItems().add(i);
             }
         }
-
 
 
         tblClmTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -152,11 +156,11 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleGenreSelected(){
+    public void handleGenreSelected() {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneMovies);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(100);
-        if (!paneMovies.isVisible()){
+        if (!paneMovies.isVisible()) {
             fadeTransition.play();
         }
 
@@ -168,15 +172,16 @@ public class Controller implements Initializable {
 
     }
 
-    public void handleMovieSelected(){
+    public void handleMovieSelected() {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), paneMovieTitle);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(100);
-        if (!paneMovieTitle.isVisible()){
+        if (!paneMovieTitle.isVisible()) {
             fadeTransition.play();
         }
 
         if (tblMoviesInGenre.getSelectionModel().getSelectedItem() != null) {
+            fadeOutEditPane(300);
             titlePane.setPrefWidth(490);
             titleHbox.setPrefWidth(800);
             TitleBar.setPrefWidth(800);
@@ -206,13 +211,11 @@ public class Controller implements Initializable {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), paneMovies);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(100);
-        if (!paneMovies.isVisible()){
+        if (!paneMovies.isVisible()) {
             fadeTransition.play();
         }
         paneMovies.setVisible(true);
         lblMoviesInGenre.setText(Search.getText());
-
-
 
 
         tblMoviesInGenre.setItems(myMovieModel.movieSearch(search));
@@ -229,7 +232,7 @@ public class Controller implements Initializable {
         // Reformatting filePath to get movie info.
         String filePath = selectedFile.getPath();
         String[] movieInfoTemp = filePath.split("\\\\");
-        String[] movieInfo = movieInfoTemp[movieInfoTemp.length-1].split("-");
+        String[] movieInfo = movieInfoTemp[movieInfoTemp.length - 1].split("-");
         int imdbRating = Integer.parseInt(movieInfo[0]);
         String[] movieTitleTemp = movieInfo[1].split("\\.");
         String movieTitle = movieTitleTemp[0].trim();
@@ -271,6 +274,11 @@ public class Controller implements Initializable {
         Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
         genreAddTxtArea.setText("To add genres, type them here with a ',' separating them" +
                 "available genres are: " + myGenreModel.getGenresString());
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), paneEditMovie);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(100);
+
+        fadeTransition.play();
         paneEditMovie.setVisible(true);
         TitleBar.setLayoutX(0);
         TitleBar.setPrefWidth(1135);
@@ -279,15 +287,15 @@ public class Controller implements Initializable {
 
 
         movieTitleField.setText(selectedMovie.getTitle());
-        if ((selectedMovie.getPersonalRating() == 0)){
+        if ((selectedMovie.getPersonalRating() == 0)) {
             personalRatingField.getSelectionModel().select(0);
-        } else{
+        } else {
             personalRatingField.getSelectionModel().select(selectedMovie.getPersonalRating());
         }
         lblIMDBRating1.setText(String.valueOf(selectedMovie.getRating()));
-        if (!selectedMovie.getGenres().isEmpty()){
+        if (!selectedMovie.getGenres().isEmpty()) {
             //sets the genres without '[' and ']' at the start and end
-            genreField.setText(selectedMovie.getGenres().toString().substring(1,selectedMovie.getGenres().toString().length()-1));
+            genreField.setText(selectedMovie.getGenres().toString().substring(1, selectedMovie.getGenres().toString().length() - 1));
         }
 
 
@@ -317,7 +325,7 @@ public class Controller implements Initializable {
         alert.setContentText("Press ok to remove the genre.");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             myGenreModel.deleteGenre(lstGenre.getSelectionModel().getSelectedItem());
         } else {
             // ... user chose CANCEL or closed the dialog
@@ -330,15 +338,15 @@ public class Controller implements Initializable {
         String tmpGenres = genreField.getText();
         String[] tmpArr = tmpGenres.split(",");
 
-        for (int i = 0; i < tmpArr.length; i++){
+        for (int i = 0; i < tmpArr.length; i++) {
             newGenres.add(tmpArr[i].trim().toUpperCase());
         }
 
         String movieTitle = movieTitleField.getText();
         int rating = -1;
-        if(personalRatingField.getSelectionModel().getSelectedItem().equals("Not Rated")){
+        if (personalRatingField.getSelectionModel().getSelectedItem().equals("Not Rated")) {
             rating = 0;
-        } else{
+        } else {
             rating = personalRatingField.getSelectionModel().getSelectedIndex();
         }
 
@@ -346,19 +354,11 @@ public class Controller implements Initializable {
         updateMoviesByGenreView();
         lblMovieRating.setText(String.valueOf(rating));
 
-        paneEditMovie.setVisible(false);
-        TitleBar.setLayoutX(335);
-        TitleBar.setPrefWidth(800);
-        titlePane.setPrefWidth(483);
-        titleHbox.setPrefWidth(800);
+        fadeOutEditPane(300);
     }
 
-    public void handleCancelMovie(){
-        paneEditMovie.setVisible(false);
-        TitleBar.setLayoutX(335);
-        TitleBar.setPrefWidth(800);
-        titlePane.setPrefWidth(483);
-        titleHbox.setPrefWidth(800);
+    public void handleCancelMovie() {
+        fadeOutEditPane(300);
 
         //Resets all the fields back to default
         imgAddPoster.setImage(new Image("/Resources/AddPoster.png"));
@@ -367,13 +367,17 @@ public class Controller implements Initializable {
         genreField.setText("");
     }
 
-    public void updateMoviesByGenreView(){
+    public void updateMoviesByGenreView() {
         tblMoviesInGenre.setItems(myMovieModel.moviesByGenre(lstGenre.getSelectionModel().getSelectedItem()));
     }
 
-    public void handlePlayMovie(MouseEvent mouseEvent) throws IOException {
+    public void handlePlayMovie(MouseEvent mouseEvent) throws IOException, SQLException {
         Movie selectedMovie = tblMoviesInGenre.getSelectionModel().getSelectedItem();
         Desktop.getDesktop().open(new File(selectedMovie.getFilePath()));
+        myMovieModel.updateLastViewed(selectedMovie.getTitle(), LocalDate.now());
+        selectedMovie.setLastViewed(LocalDate.now());
+        lblMovieLastView.setText(selectedMovie.getLastViewed().toString());
+        tblMoviesInGenre.refresh();
     }
 
     public void qualityControl() throws IOException {
@@ -381,15 +385,62 @@ public class Controller implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/gui/view/NotificationView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
 
+
+        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+
+        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+                stage.setOpacity(0.8f);
+            }
+        });
+
+        scene.setOnMouseDragExited((event) -> {
+            stage.setOpacity(1.0f);
+        });
+
+        scene.setOnMouseReleased((event) -> {
+            stage.setOpacity(1.0f);
+        });
+
         NotificationViewController controller = fxmlLoader.getController();
+        try {
+            controller.setAllMovies(myMovieModel.getAllMovies());
+        } catch (SQLException throwables) {
+            //TODO SVEND ADD ERRORHANDLER
+        }
+        controller.setFields();
         //controller.setOldMovies(myMovieModel.getOldMovies());
         //controller.setBadMovies(myMovieModel.getBadMovies());
+    }
 
+    private void fadeOutEditPane(double time) {
+        FadeTransition ft = new FadeTransition(Duration.millis(time), paneEditMovie);
+        ft.setFromValue(100);
+        ft.setToValue(0);
+        ft.play();
+        ft.setOnFinished(ActionEvent -> {
+            paneEditMovie.setVisible(false);
+        });
 
+        TitleBar.setLayoutX(335);
+        TitleBar.setPrefWidth(800);
+        titlePane.setPrefWidth(483);
+        titleHbox.setPrefWidth(800);
 
     }
 

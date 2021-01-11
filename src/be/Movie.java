@@ -58,7 +58,7 @@ public class Movie {
     }
 
     public LocalDate getLastViewed() {
-        return LocalDate.now();
+        return lastViewed;
     }
 
     public List<String> getGenres() {
@@ -76,4 +76,8 @@ public class Movie {
     }
 
     public void setPersonalRating(int personalRating){this.personalRating.set(personalRating);}
+
+    public void setLastViewed(LocalDate lastViewed) {
+        this.lastViewed = lastViewed;
+    }
 }

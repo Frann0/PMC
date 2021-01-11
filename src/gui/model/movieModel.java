@@ -189,6 +189,10 @@ public class movieModel {
         return myMovieSearcher.executeSearch(mov, search);
     }
 
+    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
+        myMovieManager.updateLastViewed(movieTitle, now);
+    }
+
     /*
     public String getBadMovies(){
         String badMovies = null;

@@ -1,16 +1,16 @@
 package bll;
 
-import dal.GenreDAL;
+import dal.genreDAL;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class GenreManager {
-    private GenreDAL myGenreDAL;
+public class genreManager {
+    private genreDAL myGenreDAL;
 
 
-    public GenreManager() throws IOException {
-        myGenreDAL = new GenreDAL();
+    public genreManager() throws IOException {
+        myGenreDAL = new genreDAL();
     }
 
     /**

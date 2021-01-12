@@ -18,11 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1135.0" styleClass="root" stylesheets="@../../Resources/Style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1135.0" styleClass="root" stylesheets="@../Resources/Style/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <HBox fx:id="root" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1135.0" styleClass="root" stylesheets="@../../Resources/Style/Style.css">
+      <HBox fx:id="root" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1135.0" styleClass="root" stylesheets="@../Resources/Style/Style.css">
          <children>
-            <Pane fx:id="paneEditMovie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../../Resources/Style/Style.css">
+            <Pane fx:id="paneEditMovie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
                <children>
                   <HBox prefHeight="45.0" prefWidth="325.0">
                      <children>
@@ -38,7 +38,7 @@
                   </HBox>
                   <ImageView fx:id="imgAddPoster" fitHeight="327.0" fitWidth="220.0" layoutX="53.0" layoutY="45.0" onMouseClicked="#HandleAddMoviePoster" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Resources/AddPoster.png" />
+                        <Image url="@../Resources/AddPoster.png" />
                      </image></ImageView>
                   <Label layoutX="37.0" layoutY="508.0" text="Genres: " textFill="WHITE">
                      <font>
@@ -78,7 +78,7 @@
             </Pane>
             <VBox prefHeight="600.0" prefWidth="476.0" styleClass="root">
                <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../../Resources/Style/Style.css">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../Resources/Style/Style.css">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -103,7 +103,7 @@
                         <JFXListView fx:id="lstGenre" layoutX="8.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#handleGenreSelected" prefHeight="235.0" prefWidth="450.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="paneMovies" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../../Resources/Style/Style.css">
+                  <Pane fx:id="paneMovies" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="465.0" styleClass="Movies" stylesheets="@../Resources/Style/Style.css">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -137,7 +137,7 @@
                   </Pane>
                </children>
             </VBox>
-            <Pane fx:id="paneMovieTitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../../Resources/Style/Style.css">
+            <Pane fx:id="paneMovieTitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="325.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
                <children>
                   <HBox prefHeight="45.0" prefWidth="325.0">
                      <children>
@@ -200,7 +200,7 @@
             </Pane>
          </children>
       </HBox>
-      <Pane fx:id="TitleBar" layoutX="337.0" prefHeight="40.0" prefWidth="800.0" styleClass="Genre" stylesheets="@../../Resources/Style/Style.css">
+      <Pane fx:id="TitleBar" layoutX="337.0" prefHeight="40.0" prefWidth="800.0" styleClass="Genre" stylesheets="@../Resources/Style/Style.css">
          <children>
             <HBox fx:id="titleHbox" prefHeight="40.0" prefWidth="800.0">
                <children>

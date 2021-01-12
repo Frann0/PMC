@@ -2,7 +2,7 @@ package gui.model;
 
 import be.*;
 
-import bll.MovieManager;
+import bll.movieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.IOException;
@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class MovieModel {
-    private MovieManager myMovieManager;
+public class movieModel {
+    private movieManager myMovieManager;
     private ObservableList<Movie> allMovies;
-    private MovieSearcher myMovieSearcher;
+    private movieSearcher myMovieSearcher;
 
-    public MovieModel() throws SQLException, IOException {
-        myMovieManager = new MovieManager();
+    public movieModel() throws SQLException, IOException {
+        myMovieManager = new movieManager();
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(myMovieManager.getAllMovies());
     }
@@ -225,7 +225,7 @@ public class MovieModel {
      * @return true if there is a match, else false.
      */
     public boolean ratingMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchRating());
+        myMovieSearcher = new movieSearcher(new SearchRating());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -236,7 +236,7 @@ public class MovieModel {
      * @return true if there is a match, else false.
      */
     public boolean genreMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchGenre());
+        myMovieSearcher = new movieSearcher(new SearchGenre());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -247,7 +247,7 @@ public class MovieModel {
      * @return true if there is a match, else false.
      */
     public boolean titleMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchTitle());
+        myMovieSearcher = new movieSearcher(new SearchTitle());
         return myMovieSearcher.executeSearch(mov, search);
     }
 

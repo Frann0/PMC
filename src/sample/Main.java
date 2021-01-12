@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../gui/view/MainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setTitle("Hello World");

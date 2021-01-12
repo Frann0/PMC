@@ -1,7 +1,7 @@
 package dal;
 
-import be.DbConnector;
-import be.ErrorHandler;
+import be.dbConnector;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDAL {
-    private DbConnector dbCon;
+public class genreDAL {
+    private dbConnector dbCon;
 
-    public GenreDAL() throws IOException {
-        dbCon = new DbConnector();
+    public genreDAL() throws IOException {
+        dbCon = new dbConnector();
     }
 
     /**

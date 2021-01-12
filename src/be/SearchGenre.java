@@ -20,7 +20,7 @@ public class SearchGenre implements ISearch {
         List<String> genreTokens = search.getGenreTokens();
 
         boolean[] tokenMatch = new boolean[genreTokens.size()];
-        System.out.println(tokenMatch.length);
+
         for (int i = 0; i < search.getGenreTokens().size(); i++){
             for (String movieGenre : movieGenres) {
                 if(genreTokens.get(i).equalsIgnoreCase(movieGenre)){
@@ -30,7 +30,7 @@ public class SearchGenre implements ISearch {
         }
         boolean match = true;
 
-        // If any filterToken does not match, false is returned.
+        // If any genreToken does not match, false is returned.
         for(boolean bool : tokenMatch){
             if(!bool){
                 match = bool;

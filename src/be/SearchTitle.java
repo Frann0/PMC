@@ -18,12 +18,8 @@ public class SearchTitle implements ISearch {
         for (int i = 0; i < search.getTitleTokens().size(); i++){
             tokenMatch[i] = movie.getTitle().toLowerCase().contains(search.getTitleTokens().get(i));
         }
-        boolean match = false;
-        for(boolean bool : tokenMatch){
-            if (bool){
-                match = bool;
-            }
-        }
+        boolean match = true;
+
         // If any filterToken does not match, false is returned.
         for(boolean bool : tokenMatch){
             if(!bool){

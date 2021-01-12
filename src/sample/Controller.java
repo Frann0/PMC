@@ -257,8 +257,11 @@ public class Controller implements Initializable {
         if (selectedFile != null) {
             Image poster = new Image(selectedFile.toURI().toString());
             imgAddPoster.setImage(poster);
+            imgPoster.setImage(poster);
+            myMovieModel.updateArtPath(tblMoviesInGenre.getSelectionModel().getSelectedItem().getTitle(), selectedFile.getPath());
         }
-        myMovieModel.updateArtPath(tblMoviesInGenre.getSelectionModel().getSelectedItem().getTitle(), selectedFile.getPath());
+
+
     }
 
     public void handleRemoveMovie(ActionEvent actionEvent) throws SQLException {

@@ -29,7 +29,6 @@ public class Search {
                 if(Integer.parseInt(tmpArr[i]) > rating){
                     rating = Integer.parseInt(tmpArr[i]);
                 }
-
             } catch (Exception ex) {
                     if (isItAGenre(tmpArr[i])) {
                         genreTokens.add(tmpArr[i]);
@@ -46,8 +45,8 @@ public class Search {
      * @return boolean to determine if the string is a genre.
      */
     private boolean isItAGenre(String query){
-        for (int i = 0; i < allGenres.size(); i++){
-            if (allGenres.get(i).equalsIgnoreCase(query)) {
+        for (String genre : allGenres) {
+            if (genre.equalsIgnoreCase(query)) {
                 return true;
             }
         }

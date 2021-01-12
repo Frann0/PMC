@@ -1,19 +1,19 @@
 package bll;
 
 import be.Movie;
-import dal.MovieDAL;
+import dal.movieDAL;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class MovieManager {
+public class movieManager {
 
-    private MovieDAL myMovieDAL;
+    private movieDAL myMovieDAL;
 
-    public MovieManager() throws IOException {
-        myMovieDAL = new MovieDAL();
+    public movieManager() throws IOException {
+        myMovieDAL = new movieDAL();
     }
 
     /**

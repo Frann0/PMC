@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class Movie {
         this.lastViewed = lastViewed;
         this.filePath.set(filePath);
         this.personalRating.set(personalRating);
-        this.art = new Image(artPath);
+        this.art = new Image(new File(artPath).toURI().toString());
 
     }
 

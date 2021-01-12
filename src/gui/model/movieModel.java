@@ -255,6 +255,10 @@ public class movieModel {
         myMovieManager.updateArtPath(movieTitle, path);
     }
 
+    public void updateLastViewed(String title, LocalDate now) throws SQLException {
+        myMovieManager.updateLastViewed(title, now);
+    }
+
     /*
     public String getBadMovies(){
         String badMovies = null;

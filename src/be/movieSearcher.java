@@ -2,10 +2,10 @@ package be;
 
 import bll.ISearch;
 
-public class movieSearcher {
+public class MovieSearcher {
     private ISearch iSearch;
 
-    public movieSearcher(ISearch iSearch) {
+    public MovieSearcher(ISearch iSearch) {
         this.iSearch = iSearch;
     }
 

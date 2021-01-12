@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class genreDAL {
+public class GenreDAL {
     private dbConnector dbCon;
 
-    public genreDAL() throws IOException {
+    public GenreDAL() throws IOException {
         dbCon = new dbConnector();
     }
 

@@ -1,16 +1,9 @@
 package dal;
 
-import be.Movie;
-import javafx.scene.image.ImageView;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-public class dbTest {
+public class DbTest {
 
 
 
@@ -36,8 +29,8 @@ public class dbTest {
         //LocalDate lastViewed = null;
 
 
-        genreDAL myGenreDAL = new genreDAL();
-        movieDAL myMovieDAL = new movieDAL();
+        GenreDAL myGenreDAL = new GenreDAL();
+        MovieDAL myMovieDAL = new MovieDAL();
 
         /*
         List<Movie> allMovs = myMovieDAL.getAllMovies();

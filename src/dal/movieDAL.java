@@ -1,10 +1,8 @@
 package dal;
 
 import be.Movie;
-import be.dbConnector;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import be.DbConnector;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,10 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class movieDAL {
-    private dbConnector dbCon = new dbConnector();
+public class MovieDAL {
+    private DbConnector dbCon = new DbConnector();
 
-    public movieDAL() throws IOException {
+    public MovieDAL() throws IOException {
     }
 
 

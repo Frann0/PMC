@@ -1,6 +1,6 @@
 package gui.model;
 
-import bll.genreManager;
+import bll.GenreManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
-public class genreModel {
-    private genreManager myGenreManager;
+public class GenreModel {
+    private GenreManager myGenreManager;
     private ObservableList<String> allGenres;
 
 
-    public genreModel() throws IOException, SQLException {
-        myGenreManager = new genreManager();
+    public GenreModel() throws IOException, SQLException {
+        myGenreManager = new GenreManager();
         allGenres = FXCollections.observableArrayList();
         allGenres.addAll(myGenreManager.getAllGenres());
     }

@@ -1,8 +1,10 @@
 package dal;
 
 import be.Movie;
-import be.DbConnector;
+import be.dbConnector;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class movieDAL {
+<<<<<<< HEAD
     private DbConnector dbCon = new DbConnector();
+=======
+    private dbConnector dbCon = new dbConnector();
+>>>>>>> parent of dbbb8df... Refactor
 
     public movieDAL() throws IOException {
     }

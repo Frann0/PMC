@@ -13,7 +13,7 @@ import java.util.List;
 public class movieModel {
     private movieManager myMovieManager;
     private ObservableList<Movie> allMovies;
-    private MovieSearcher myMovieSearcher;
+    private movieSearcher myMovieSearcher;
 
     public movieModel() throws SQLException, IOException {
         myMovieManager = new movieManager();
@@ -225,7 +225,7 @@ public class movieModel {
      * @return true if there is a match, else false.
      */
     public boolean ratingMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchRating());
+        myMovieSearcher = new movieSearcher(new SearchRating());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -236,7 +236,7 @@ public class movieModel {
      * @return true if there is a match, else false.
      */
     public boolean genreMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchGenre());
+        myMovieSearcher = new movieSearcher(new SearchGenre());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -247,7 +247,7 @@ public class movieModel {
      * @return true if there is a match, else false.
      */
     public boolean titleMatch(Movie mov, Search search){
-        myMovieSearcher = new MovieSearcher(new SearchTitle());
+        myMovieSearcher = new movieSearcher(new SearchTitle());
         return myMovieSearcher.executeSearch(mov, search);
     }
 

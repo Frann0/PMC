@@ -1,6 +1,11 @@
 package dal;
 
+<<<<<<< HEAD
 import be.DbConnector;
+=======
+import be.dbConnector;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+>>>>>>> parent of dbbb8df... Refactor
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,10 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class genreDAL {
+<<<<<<< HEAD
     private DbConnector dbCon;
 
     public genreDAL() throws IOException {
         dbCon = new DbConnector();
+=======
+    private dbConnector dbCon;
+
+    public genreDAL() throws IOException {
+        dbCon = new dbConnector();
+>>>>>>> parent of dbbb8df... Refactor
     }
 
     /**

@@ -16,16 +16,26 @@ public class SearchGenre implements ISearch {
      */
     @Override
     public boolean compareMovie(Movie movie, Search search) {
-        List<String> genres = movie.getGenres();
+        List<String> movieGenres = movie.getGenres();
         List<String> genreTokens = search.getGenreTokens();
 
-        for (String genreToken : genreTokens) {
-            for (String allGenre : genres) {
-                if (genreToken.equalsIgnoreCase(allGenre)) {
-                    return true;
+        boolean[] tokenMatch = new boolean[genreTokens.size()];
+        System.out.println(tokenMatch.length);
+        for (int i = 0; i < search.getGenreTokens().size(); i++){
+            for (String movieGenre : movieGenres) {
+                if(genreTokens.get(i).equalsIgnoreCase(movieGenre)){
+                    tokenMatch[i] = true;
                 }
             }
         }
-        return false;
+        boolean match = true;
+
+        // If any filterToken does not match, false is returned.
+        for(boolean bool : tokenMatch){
+            if(!bool){
+                match = bool;
+            }
+        }
+        return match;
     }
 }

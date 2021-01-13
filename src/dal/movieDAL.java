@@ -1,10 +1,10 @@
 package dal;
 
+import be.ErrorHandler;
 import be.Movie;
-import be.dbConnector;
+import be.DbConnector;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,15 +14,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class movieDAL {
-    private dbConnector dbCon = new dbConnector();
+public class MovieDAL {
+    private DbConnector dbCon = new DbConnector();
 
-    public movieDAL() throws IOException {
+    public MovieDAL() throws IOException {
     }
 
+    /**
+     * This method create a new List and take all Movies from Database and but into this list.
+     * @return
+     */
 
-
-    public List<Movie> getAllMovies() throws SQLException {
+    public List<Movie> getAllMovies()  {
         List<Movie> allMovies = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection()) {
@@ -90,12 +93,19 @@ public class movieDAL {
                     }
                 }
             }
+        } catch (SQLException throwables) {
+            ErrorHandler.getAllMovieErr();
         }
         return allMovies;
     }
 
-
-    public void addMovie(String movieTitle, int imdbRating, String filePath) throws SQLException {
+    /**
+     * This method create a movine in the Database under Movie.
+     * @param movieTitle this set the movieTitle.
+     * @param imdbRating this set the movies imdbration.
+     * @param filePath this set the file location on you pc to the movie.
+     */
+    public void addMovie(String movieTitle, int imdbRating, String filePath) {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("INSERT INTO Movie VALUES(?,?,?,?,?)");
@@ -106,22 +116,34 @@ public class movieDAL {
             pSql.setString(5, null);
             pSql.setInt(5, imdbRating);
             pSql.execute();
+        } catch (SQLException throwables) {
+            ErrorHandler.addMovieErr();
         }
     }
-
-    // TODO
-    public void deleteMovie(String title) throws SQLException {
+    /**
+     *  This method  first delete the Associations from the movie then delete the Movie from the Database Movie.
+     * @param title this is the input you use the delete the Movie from.
+     */
+    public void deleteMovie(String title) {
         try(Connection con = dbCon.getConnection()) {
             deleteAssociations(title);
 
             PreparedStatement pSql2 = con.prepareStatement("DELETE FROM Movie Where Title = ?");
             pSql2.setString(1,title);
             pSql2.execute();
+        } catch (SQLException throwables) {
+            ErrorHandler.deleteMovieErr();
         }
     }
 
-    //TODO
-    public void addAssociations(String movieTitle,List<String> genreList) throws SQLException {
+    /**
+     * This method add associations from movies and and Genre and puts them into GenreMovie in the Database.
+     *  if the genreList is == 1 it just add 1 movie with 1 genre.
+     *  if the genreList is > 1 it make a loop where it add the movie with each genre.
+     * @param movieTitle the movie you want to add to GenreMovie
+     * @param genreList the list of Genre you want to a movie in GenreMovie
+     */
+    public void addAssociations(String movieTitle,List<String> genreList) {
         try(Connection con = dbCon.getConnection()) {
 
             if (genreList.size()==1) {
@@ -144,29 +166,44 @@ public class movieDAL {
                 pSql.executeBatch();
 
             }
+        } catch (SQLException throwables) {
+            ErrorHandler.addAssociationsErr();
         }
     }
 
-
-    public void deleteAssociations(String title) throws SQLException {
+    /**
+     * This method delete all the Associations from a movie in the GenreMovie.
+     * so a movie will not be in the GenreMovie.
+     * @param title the name of the movie you want to delete from GenreMovie.
+     */
+    public void deleteAssociations(String title) {
         try (Connection con = dbCon.getConnection()) {
 
             PreparedStatement pSql = con.prepareStatement("DELETE FROM GenreMovie WHERE MovieTitle = ?");
             pSql.setString(1, title);
             pSql.execute();
+        } catch (SQLException throwables) {
+           ErrorHandler.deleteAssociationsErr();
         }
     }
 
-    public void updateArtPath(String movieTitle, String artpath) throws SQLException {
+    public void updateArtPath(String movieTitle, String artpath) {
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
             PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET ArtPath= '" + artpath + "' WHERE Title= '" + movieTitle + "'");
             pSql.execute();
+        } catch (SQLException throwables) {
+            ErrorHandler.connectionErr();
         }
 
     }
-
-    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating) throws SQLException {
+    /**
+     * This method Update the Personal Rating and Update it's associations.
+     * @param movieTitle the title of the movie you update.
+     * @param newGenres the name of the new title you want to update.
+     * @param newPersonalRating the ration you update to the movie.
+     */
+    public void updateMovie(String movieTitle, List<String> newGenres, int newPersonalRating){
 
         try (Connection con = dbCon.getConnection()) {
             // Update personalRating
@@ -176,15 +213,23 @@ public class movieDAL {
             // Update associations
             deleteAssociations(movieTitle);
             addAssociations(movieTitle, newGenres);
+        } catch (SQLException throwables) {
+            ErrorHandler.updateMovieErr();
         }
     }
 
-
-    public void updateLastViewed(String movieTitle, LocalDate now) throws SQLException {
+    /**
+     * This method update the LastViewed from a movie.
+     * @param movieTitle the title of the movie you update the Lastviewed.
+     * @param now the date from "Now" you update the movie Lastviewed too.
+     */
+    public void updateLastViewed(String movieTitle, LocalDate now) {
         try (Connection con = dbCon.getConnection()) {
             // Update LastViewed
             PreparedStatement pSql = con.prepareStatement("UPDATE Movie SET LastViewed= '" + now + "' WHERE Title= '" + movieTitle + "'");
             pSql.execute();
+        } catch (SQLException throwables) {
+            ErrorHandler.updateLastViewedErr();
         }
     }
 }

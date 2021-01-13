@@ -1,7 +1,7 @@
 package bll;
 
 import be.*;
-import dal.movieDAL;
+import dal.MovieDAL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class movieManager {
+public class MovieManager {
 
-    private movieDAL myMovieDAL;
-    private movieSearcher myMovieSearcher;
+    private MovieDAL myMovieDAL;
+    private MovieSearcher myMovieSearcher;
 
-    public movieManager() throws IOException {
-        myMovieDAL = new movieDAL();
+    public MovieManager() throws IOException {
+        myMovieDAL = new MovieDAL();
     }
 
     /**
@@ -184,7 +184,7 @@ public class movieManager {
      * @return true if there is a match, else false.
      */
     public boolean ratingMatch(Movie mov, Search search){
-        myMovieSearcher = new movieSearcher(new SearchRating());
+        myMovieSearcher = new MovieSearcher(new SearchRating());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -195,7 +195,7 @@ public class movieManager {
      * @return true if there is a match, else false.
      */
     public boolean genreMatch(Movie mov, Search search){
-        myMovieSearcher = new movieSearcher(new SearchGenre());
+        myMovieSearcher = new MovieSearcher(new SearchGenre());
         return myMovieSearcher.executeSearch(mov, search);
     }
 
@@ -206,7 +206,7 @@ public class movieManager {
      * @return true if there is a match, else false.
      */
     public boolean titleMatch(Movie mov, Search search){
-        myMovieSearcher = new movieSearcher(new SearchTitle());
+        myMovieSearcher = new MovieSearcher(new SearchTitle());
         return myMovieSearcher.executeSearch(mov, search);
     }
 }

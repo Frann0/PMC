@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class genreManager {
+public class GenreManager {
     private GenreDAL myGenreDAL;
 
 
-    public genreManager() throws IOException {
+    public GenreManager() throws IOException {
         myGenreDAL = new GenreDAL();
     }
 

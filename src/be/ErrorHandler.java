@@ -1,7 +1,6 @@
-package dal;
+package be;
 
-import be.dbConnector;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import be.DbConnector;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -10,11 +9,11 @@ import java.sql.SQLException;
 
 public class ErrorHandler {
 
-    private static dbConnector dbCon;
+    private static DbConnector dbCon;
 
 
 public ErrorHandler() throws IOException {
-    dbCon = new dbConnector();
+    dbCon = new DbConnector();
 }
 
     // skal testet

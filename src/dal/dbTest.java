@@ -3,7 +3,7 @@ package dal;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class dbTest {
+public class DbTest {
 
 
 
@@ -30,7 +30,7 @@ public class dbTest {
 
 
         GenreDAL myGenreDAL = new GenreDAL();
-        movieDAL myMovieDAL = new movieDAL();
+        MovieDAL myMovieDAL = new MovieDAL();
 
         /*
         List<Movie> allMovs = myMovieDAL.getAllMovies();

@@ -1,12 +1,11 @@
-package sample;
+package gui.controller;
 
 import be.Movie;
 import be.Search;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import gui.controller.NotificationViewController;
-import gui.model.genreModel;
-import gui.model.movieModel;
+import gui.model.GenreModel;
+import gui.model.MovieModel;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -93,16 +92,16 @@ public class Controller implements Initializable {
     @FXML
     private Label lblIMDBRating1;
 
-    private movieModel myMovieModel;
-    private genreModel myGenreModel;
+    private MovieModel myMovieModel;
+    private GenreModel myGenreModel;
     private double xOffset = 0;
     private double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            myMovieModel = new movieModel();
-            myGenreModel = new genreModel();
+            myMovieModel = new MovieModel();
+            myGenreModel = new GenreModel();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }

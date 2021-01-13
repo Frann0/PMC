@@ -2,7 +2,7 @@ package gui.model;
 
 import be.*;
 
-import bll.movieManager;
+import bll.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.IOException;
@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class movieModel {
-    private movieManager myMovieManager;
+public class MovieModel {
+    private MovieManager myMovieManager;
     private ObservableList<Movie> allMovies;
 
 
-    public movieModel() throws SQLException, IOException {
-        myMovieManager = new movieManager();
+    public MovieModel() throws SQLException, IOException {
+        myMovieManager = new MovieManager();
         allMovies = FXCollections.observableArrayList();
         allMovies.addAll(myMovieManager.getAllMovies());
     }

@@ -94,20 +94,6 @@ public class MovieModel {
         myMovieManager.updateMovie(movieTitle, newGenres, newPersonalRating);
     }
 
-    public String getOldMovies(){
-        String oldMovies = "";
-
-        for (Movie mov : allMovies){
-            if(mov.getLastViewed() != null){
-                if (mov.getLastViewed().plusYears(2).compareTo(LocalDate.now()) < 0){
-                    String movieString = mov.getTitle() + " was last seen on: " + mov.getLastViewed() + ".";
-                    oldMovies += movieString + "\r\n";
-                }
-            }
-        }
-        return oldMovies;
-    }
-
     public void updateArtPath(String movieTitle, String path) throws SQLException {
         myMovieManager.updateArtPath(movieTitle, path);
     }

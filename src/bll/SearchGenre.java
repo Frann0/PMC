@@ -1,6 +1,6 @@
-package be;
+package bll;
 
-import bll.ISearch;
+import be.Movie;
 
 import java.util.List;
 

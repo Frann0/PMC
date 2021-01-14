@@ -3,6 +3,7 @@ package gui.model;
 import be.*;
 
 import bll.MovieManager;
+import bll.Search;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.IOException;

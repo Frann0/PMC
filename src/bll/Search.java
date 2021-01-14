@@ -1,4 +1,4 @@
-package be;
+package bll;
 
 import java.util.ArrayList;
 import java.util.List;

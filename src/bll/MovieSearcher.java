@@ -1,6 +1,8 @@
-package be;
+package bll;
 
+import be.Movie;
 import bll.ISearch;
+import bll.Search;
 
 public class MovieSearcher {
     private ISearch iSearch;

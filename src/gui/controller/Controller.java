@@ -1,7 +1,7 @@
 package gui.controller;
 
 import be.Movie;
-import be.Search;
+import bll.Search;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import gui.model.GenreModel;
@@ -200,7 +200,7 @@ public class Controller implements Initializable {
     }
 
     public void handleSearch(KeyEvent keyEvent) throws SQLException, IOException {
-        be.Search search = new Search(Search.getText(), myGenreModel.getAllGenres());
+        bll.Search search = new Search(Search.getText(), myGenreModel.getAllGenres());
 
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(600), paneMovies);
         fadeTransition.setFromValue(0);

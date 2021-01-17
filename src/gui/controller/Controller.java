@@ -386,8 +386,12 @@ public class Controller implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("/gui/view/NotificationView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.setFill(Color.TRANSPARENT);
+
+
         stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setAlwaysOnTop(true);
         stage.initModality(Modality.APPLICATION_MODAL);
+
         stage.setScene(scene);
         stage.show();
 
